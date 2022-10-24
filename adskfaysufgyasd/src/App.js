@@ -28,6 +28,7 @@ function App() {
       if(r.ok){
         r.json().then(data => {
           setData(data)
+          console.log('howdy', data)
         })
       } else {
         r.json().then(json => console.log(json.errors))
@@ -60,6 +61,7 @@ function App() {
   }
 
   return (
+
     <div>
       <p>sign in:</p>
       <form onSubmit={handleSubmit}>
@@ -75,6 +77,7 @@ function App() {
         <button type="submit">submit</button>
       </form>
     </div>
+
   );
 }
 
