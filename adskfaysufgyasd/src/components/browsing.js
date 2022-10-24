@@ -5,7 +5,7 @@ export default function Browsing(){
     return(
 
         <div>
-            Hello from Browsing
+            Time to get spicy 🌶️ 🫑 🥵
         </div>
 
     )

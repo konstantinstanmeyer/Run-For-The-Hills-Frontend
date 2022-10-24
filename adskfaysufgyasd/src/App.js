@@ -9,6 +9,7 @@ import NavBar from './components/navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './App.css';
+import Signup from './components/signup';
 
 function App() {
   
@@ -20,6 +21,9 @@ function App() {
         <Routes>
           <Route exact path="/login" element={
             <Login />
+          }/>
+         <Route exact path="/signup" element={
+            <Signup />
           }/>
           <Route exact path="/browsing" element={
             <Browsing />
