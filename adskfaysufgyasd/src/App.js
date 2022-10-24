@@ -11,17 +11,30 @@ function App() {
 
   function handleSubmit(e){
     e.preventDefault();
-    const controller = new AbortController();
-    fetch('/login', { signal: controller.signal})
-    .then(r => r.json())
+    const user = {
+      email: email,
+      password: password,
+    }
+    fetch('/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body:JSON.stringify(user)
+    })
+    .then(r => {
+      if(r.ok){
+        r.json().then(data => {
+          setData(data)
+        })
+      } else {
+        r.json().then(json => console.log(Object.entries(json.errors)))
+      }
+    })
     .catch(err => console.log(err))
     .finally(data => {
       setData(data)
     })
-
-    return () => {
-      controller.abort();
-    }
   }
 
   return (
