@@ -1,5 +1,5 @@
 import logo from './logo.svg';
-import React from 'react';
+import {useEffect, useState} from 'react'
 import Login from './components/login'
 import Profile from './components/profile'
 import Browsing from './components/browsing'
@@ -12,6 +12,34 @@ import './App.css';
 import Signup from './components/signup';
 
 function App() {
+
+  const [allProfiles, setAllProfiles] = useState([])
+  const [errors, setErrors] = useState(false)
+
+  useEffect(() => {
+    // fetch("/authorized_user")
+    // .then((res) => {
+    //   if (res.ok) {
+    //     res.json()
+    //     .then((user) => {
+    //       updateUser(user);
+    //       fetchProductions()
+    //     });
+    //   }
+    // })
+    fetchProfiles()
+  },[])
+
+  const fetchProfiles = () => {
+    fetch('/profiles')
+    .then(res => {
+      if(res.ok){
+        res.json().then(setAllProfiles)
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+  }
   
   return (
 
@@ -26,7 +54,9 @@ function App() {
             <Signup />
           }/>
           <Route exact path="/browsing" element={
-            <Browsing />
+            <Browsing
+              allProfiles={allProfiles}
+            />
           }/>
           <Route exact path="/likesmatches" element={
             <LikesMatches />

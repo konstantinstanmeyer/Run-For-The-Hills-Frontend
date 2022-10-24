@@ -3,9 +3,8 @@ import RenderProfileCard from "./renderprofilecard";
 import {v4 as uuid} from "uuid";
 import { Link } from "react-router-dom";
 
-export default function Browsing() {
+export default function Browsing({ allProfiles }) {
 
-    const testArray = [1,2,3]
 
     return (
 
@@ -15,10 +14,10 @@ export default function Browsing() {
             
             <div className="profile-browsing">
             
-                {testArray.map((eachTest) =>
+                {allProfiles.map((eachProfile) =>
                         <RenderProfileCard
                             key={uuid()}
-                            number={eachTest}
+                            picture={eachProfile.profile_picture}
                         />
                     )
                 }

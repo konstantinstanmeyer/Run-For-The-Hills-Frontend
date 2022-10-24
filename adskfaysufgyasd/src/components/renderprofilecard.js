@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function RenderProfileCard({ number }){
+export default function RenderProfileCard({ picture, beard }){
 
     const [isClicked, setIsClicked] = useState(false)
 
@@ -9,7 +9,7 @@ export default function RenderProfileCard({ number }){
         <div>
               <button className="switch">Hereeee'sss Johnny!</button>
               <img
-                 src={'https://sexyscience1.files.wordpress.com/2013/11/worst-online-dating-profile-photo-8.jpg'}
+                 src={picture}
                  alt={"where the picture will be"}
               />
         </div>
@@ -22,7 +22,7 @@ export default function RenderProfileCard({ number }){
            <button className="switch"> NAME</button>
               <h2>{"idk"}</h2>
               <p>{"some more stuff"} </p>
-              <p>Beard Length: {number}</p>
+              <p>Beard Length: {beard}</p>
               <p>Security Goat?: {"profile.security_goat?"}</p>
               <p>Pontoon Boat?: {"profile.pontoon_boat"} </p>
         </div>
