@@ -5,6 +5,7 @@ import Profile from './components/profile'
 import Browsing from './components/browsing'
 import LikesMatches from './components/likesmatches'
 import About from './components/about'
+import NavBar from './components/navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import './App.css';
@@ -15,6 +16,7 @@ function App() {
 
     <div>
       <Router>
+        <NavBar />
         <Routes>
           <Route exact path="/login" element={
             <Login />

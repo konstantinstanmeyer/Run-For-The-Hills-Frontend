@@ -1,2 +1,13 @@
 import React, { useState } from 'react';
-import './App.css';
+
+export default function Login(){
+
+    return(
+
+        <div>
+            Hello from login
+        </div>
+
+    )
+    
+}
