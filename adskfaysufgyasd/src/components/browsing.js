@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import RenderProfileCard from "./renderprofilecard";
 import {v4 as uuid} from "uuid";
+import { Link } from "react-router-dom";
 
 export default function Browsing() {
 
@@ -23,6 +24,12 @@ export default function Browsing() {
                 }
             
             </div>
+
+            <br/><br/>
+
+            <p>
+                Tired of searching?? Check out your <Link to="/likesmatches"> likes and matches</Link> instead! 
+            </p>
             
         </div>
 

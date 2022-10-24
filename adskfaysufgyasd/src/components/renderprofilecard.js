@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from "react-router-dom";
 
 export default function RenderProfileCard({ number }){
 
@@ -10,7 +9,7 @@ export default function RenderProfileCard({ number }){
         <div>
               <button className="switch">Hereeee'sss Johnny!</button>
               <img
-                 src={'tbd'}
+                 src={'https://sexyscience1.files.wordpress.com/2013/11/worst-online-dating-profile-photo-8.jpg'}
                  alt={"where the picture will be"}
               />
         </div>
