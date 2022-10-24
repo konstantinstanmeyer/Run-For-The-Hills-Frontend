@@ -30,7 +30,7 @@ function App() {
           setData(data)
         })
       } else {
-        r.json().then(json => console.log((json.errors)))
+        r.json().then(json => console.log(json.errors))
       }
     })
   }
@@ -54,7 +54,7 @@ function App() {
           setData(data)
         })
       } else {
-        r.json().then(json => console.log((json.errors)))
+        r.json().then(json => console.log(json.errors))
       }
     })
   }
