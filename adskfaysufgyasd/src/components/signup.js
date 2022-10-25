@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import ProfileForm from './profileform';
+//import {useHistory} from 'react-router-dom'
 
-export default function Signup({}){
+export default function Signup(){
 
     const [data, setData] = useState("")
     const [emailCreate, setEmailCreate] = useState("")
@@ -9,6 +10,8 @@ export default function Signup({}){
     const [firstNameCreate, setFirstNameCreate] = useState('')
     const [lastNameCreate, setLastNameCreate] = useState('')
     const [hasNotSubmitted, setHasNotSubmitted] = useState(true)
+
+    //const history = useHistory()
 
     function handleSubmitCreate(e){
         e.preventDefault();
@@ -18,10 +21,10 @@ export default function Signup({}){
             first_name: firstNameCreate,
             last_name: lastNameCreate
         }
-        fetch('/users', {
+        fetch('/profiles', {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body:JSON.stringify(user)
         })
@@ -29,7 +32,8 @@ export default function Signup({}){
             if(r.ok){
             r.json().then(data => {
                 console.log(data)
-                setData(data)
+                setData(() => data)
+                //history.push(`/users/${data.id}`)
                 setHasNotSubmitted(() => false)
             })
             } else {
@@ -58,7 +62,7 @@ export default function Signup({}){
                 <p>Let's set up your profile to get you fishing for your perfect catch:</p>
                 <ProfileForm
                     restTYPE={'POST'}
-                    userID={data.id}
+                    data={data}
                 />
             </div>
         }

@@ -3,15 +3,15 @@ import React, { useState } from 'react';
 // TO DO
 // gonna need some on submit thing that changes the form to be closed and then links to see your likes or to see some fish
 
-export default function ProfileForm({ restTYPE, userID, allProfiles }){
+export default function ProfileForm({ restTYPE, data }){
 
-  //console.log(restTYPE)
-
-  console.log(allProfiles)
-  // let currentProfile = allProfiles.filter(profile => profile.user_id == userID)
-  // console.log(currentProfile)
-  //let profileID = currentProfile.id
   let profileID=0
+
+  console.log(data)
+
+  // TO DO
+  // the userID is good
+  // use session to get profile id from user id??
     
     const [formData, setFormData] = useState({
         beardLength: undefined,
@@ -37,16 +37,16 @@ export default function ProfileForm({ restTYPE, userID, allProfiles }){
       // this is for CREATE
       function onSubmit(e){
         e.preventDefault()
-        
-        fetch(`/profiles/${profileID}`,{
-          method: {restTYPE},
+
+       // fetch(`/profiles/${profileID}` 
+        fetch('/profiles',{
+          method: restTYPE,
           headers: {'Content-Type': 'application/json'},
           body:JSON.stringify({...formData, ongoing:true})
         })
         .then(res => {
           if(res.ok){
-            console.log(res)
-            console.log(formData)
+            console.log('hwody')
             //res.json().then(addProfile)
           } else {
             //Display errors

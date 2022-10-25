@@ -47,9 +47,7 @@ function App() {
             <Login />
           }/>
          <Route exact path="/signup" element={
-            <Signup
-              allProfiles={allProfiles}
-            />
+            <Signup />
           }/>
           <Route exact path="/dating" element={
             <Browsing
