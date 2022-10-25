@@ -24,6 +24,7 @@ export default function Login(){
           if(r.ok){
             r.json().then(data => {
               setData(data)
+              console.log(data)
             })
           } else {
             r.json().then(json => console.log(json.errors))
