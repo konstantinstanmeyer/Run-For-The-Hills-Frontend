@@ -17,7 +17,15 @@ export default function Browsing({ allProfiles }) {
                 {allProfiles.map((eachProfile) =>
                         <RenderProfileCard
                             key={uuid()}
+                            wholeProfile={eachProfile}
                             picture={eachProfile.profile_picture}
+                            beard={eachProfile.beard_length}
+                            moonshine={eachProfile.moonshine_abv_level}
+                            rodeo_buckles={eachProfile.rodeo_buckles}
+                            truck_brand={eachProfile.truck_brand}
+                            mode_of_tobacco={eachProfile.mode_of_tobacco}
+                            pontoon_boat={eachProfile['pontoon_boat?']}
+                            security_goat={eachProfile['security_goat?']}
                         />
                     )
                 }
