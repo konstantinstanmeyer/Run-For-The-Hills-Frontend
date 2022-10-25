@@ -42,7 +42,7 @@ function App() {
   return (
     <div>
       <Router>
-        <NavBar />
+        {/* <NavBar /> */}
         <Routes>
           <Route exact path="/" element={
             <Login />
