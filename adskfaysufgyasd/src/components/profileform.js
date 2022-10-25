@@ -1,10 +1,17 @@
 import React, { useState } from 'react';
 
+// TO DO
 // gonna need some on submit thing that changes the form to be closed and then links to see your likes or to see some fish
 
-export default function ProfileForm({ restTYPE }){
+export default function ProfileForm({ restTYPE, userID, allProfiles }){
 
-  console.log(restTYPE)
+  //console.log(restTYPE)
+
+  console.log(allProfiles)
+  // let currentProfile = allProfiles.filter(profile => profile.user_id == userID)
+  // console.log(currentProfile)
+  //let profileID = currentProfile.id
+  let profileID=0
     
     const [formData, setFormData] = useState({
         beardLength: undefined,
@@ -25,12 +32,13 @@ export default function ProfileForm({ restTYPE }){
         setFormData({ ...formData, [name]: value })
       }
     
+      // TO DO
       // gonna be tricky with create vs edit profile
       // this is for CREATE
       function onSubmit(e){
         e.preventDefault()
         
-        fetch('/profiles',{
+        fetch(`/profiles/${profileID}`,{
           method: {restTYPE},
           headers: {'Content-Type': 'application/json'},
           body:JSON.stringify({...formData, ongoing:true})
