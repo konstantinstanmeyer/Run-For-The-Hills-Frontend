@@ -11,7 +11,7 @@ import Signup from './components/signup'
 function App() {
   const [allProfiles, setAllProfiles] = useState([])
   const [errors, setErrors] = useState(false)
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
     fetch("/authorized_user")
@@ -45,9 +45,8 @@ function App() {
           <Route exact path="/" element={
             <Login />
           }/>
-
          <Route exact path="/signup" element={
-            <Signup />
+            <Signup/>
           }/>
           <Route exact path="/dating" element={
             <Browsing

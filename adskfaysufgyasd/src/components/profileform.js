@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 
+// gonna need some on submit thing that changes the form to be closed and then links to see your likes or to see some fish
+
 export default function ProfileForm({ restTYPE }){
 
   console.log(restTYPE)
