@@ -6,8 +6,8 @@ export default function NavBar(){
 
         <div className="nav-bar">
             <Link to="/profile">Profile</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/browsing">Search the Haystack</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-            <Link to="/login">Log In</Link>
+            <Link to="/dating">Search the Haystack</Link>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <Link to="/">Log In</Link>
         </div>
 
     )

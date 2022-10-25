@@ -37,10 +37,9 @@ export default function Login(){
           }
         })
       }
-  
-        }
+   
         
-    }
+    
 
     useEffect(() => {
         if (!startedTyping && email !== ""){
@@ -89,5 +88,6 @@ export default function Login(){
             </div> */}
         </div>
     )
+          
 }
 
