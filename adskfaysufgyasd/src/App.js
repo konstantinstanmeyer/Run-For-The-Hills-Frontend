@@ -15,19 +15,20 @@ function App() {
 
   const [allProfiles, setAllProfiles] = useState([])
   const [errors, setErrors] = useState(false)
+  const [currentUser, setCurrentUser] = useState()
 
   useEffect(() => {
-    // fetch("/authorized_user")
-    // .then((res) => {
-    //   if (res.ok) {
-    //     res.json()
-    //     .then((user) => {
-    //       updateUser(user);
-    //       fetchProductions()
-    //     });
-    //   }
-    // })
-    fetchProfiles()
+    fetch("/authorized_user")
+    .then((res) => {
+      if (res.ok) {
+        res.json()
+        .then((user) => {
+          setCurrentUser(user);
+          fetchProfiles()
+          console.log(currentUser)
+        });
+      }
+    })
   },[])
 
   const fetchProfiles = () => {
