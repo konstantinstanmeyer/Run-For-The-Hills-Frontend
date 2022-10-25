@@ -1,8 +1,11 @@
 import React from 'react';
+import Login from './components/login'
+import Profile from './components/profile'
+import Browsing from './components/browsing'
+import LikesMatches from './components/likesmatches'
+import About from './components/about'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Login from './components/login'
-import Browsing from './components/browsing';
 
 function App() {
   
@@ -15,6 +18,15 @@ function App() {
           }/>
           <Route path="/dating" element={
             <Browsing />
+          }/>
+          <Route path="/likesmatches" element={
+            <LikesMatches />
+          }/>
+          <Route path="/profile" element={
+            <Profile />
+          }/>
+          <Route path="/about" element={
+            <About />
           }/>
         </Routes>
       </Router>
