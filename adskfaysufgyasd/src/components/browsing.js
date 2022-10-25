@@ -11,13 +11,14 @@ export default function Browsing({ allProfiles }) {
         <div>
             
             Time to get spicy 🌶️ 🫑 🥵
+
+            <br/><br/>
             
             <div className="profile-browsing">
             
                 {allProfiles.map((eachProfile) =>
                         <RenderProfileCard
                             key={uuid()}
-                            wholeProfile={eachProfile}
                             picture={eachProfile.profile_picture}
                             beard={eachProfile.beard_length}
                             moonshine={eachProfile.moonshine_abv_level}
@@ -26,6 +27,7 @@ export default function Browsing({ allProfiles }) {
                             mode_of_tobacco={eachProfile.mode_of_tobacco}
                             pontoon_boat={eachProfile['pontoon_boat?']}
                             security_goat={eachProfile['security_goat?']}
+                            thisuser={eachProfile.user}
                         />
                     )
                 }
@@ -41,4 +43,5 @@ export default function Browsing({ allProfiles }) {
         </div>
 
     )
+    
 }

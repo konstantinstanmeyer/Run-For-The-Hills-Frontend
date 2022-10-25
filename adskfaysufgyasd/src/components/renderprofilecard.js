@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buckles, truck_brand, mode_of_tobacco, pontoon_boat, security_goat }){
+export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buckles, truck_brand, mode_of_tobacco, pontoon_boat, security_goat, thisuser }){
 
     const [isClicked, setIsClicked] = useState(false)
 
@@ -12,11 +12,12 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
                     src={picture}
                     alt={"where the picture will be"}
                 />
+                {thisuser.first_name}
                 <br/>
-                ****name*****
                 I have {rodeo_buckles} buckles 😎 🏇 😤
               </button>
         </div>
+        <br/>
         </React.Fragment>
     )
 
@@ -24,7 +25,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
         <React.Fragment>
         <div>
            <button className="switch">
-              <h2>{"full name"}</h2>
+              <h1>{thisuser.first_name} {thisuser.last_name}</h1>
               <p>Beard Length 🧔‍♀️ : {beard}</p>
               <p>Truck Brand 🛻: {truck_brand}</p>
               <p>Preffered Tobaccy 🚬: {mode_of_tobacco}</p>
@@ -33,6 +34,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
               <p>Pontoon Boat 🛥️ ?: {pontoon_boat ? "hell yeah" : "no way jose"} </p>
             </button>
         </div>
+        <br/>
         </React.Fragment> 
     )
 
