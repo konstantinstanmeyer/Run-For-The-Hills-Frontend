@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import ProfileForm from './profileform';
 
 export default function Signup(){
 
@@ -32,12 +33,15 @@ export default function Signup(){
 
     return (
     <div>
-      <p>create users:</p>
-      <form onSubmit={handleSubmitCreate}>
-        <input value={emailCreate} onChange={e => setEmailCreate(e.target.value)} type="text" placeholder="email"></input>
-        <input  value={passwordCreate} onChange={e => setPasswordCreate(e.target.value)} type="password" placeholder="password"></input>
-        <button type="submit">submit</button>
-      </form>
+        <p>create users:</p>
+        <form onSubmit={handleSubmitCreate}>
+            <input value={emailCreate} onChange={e => setEmailCreate(e.target.value)} type="text" placeholder="email"></input>
+            <input  value={passwordCreate} onChange={e => setPasswordCreate(e.target.value)} type="password" placeholder="password"></input>
+            <button type="submit">submit</button>
+        </form>
+        <ProfileForm
+            restTYPE='POST'
+        />
     </div>
     )
 }
