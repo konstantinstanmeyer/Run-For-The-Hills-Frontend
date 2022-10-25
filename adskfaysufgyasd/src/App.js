@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import {useEffect, useState} from 'react'
 import Login from './components/login'
 import Profile from './components/profile'
@@ -7,7 +6,6 @@ import LikesMatches from './components/likesmatches'
 import About from './components/about'
 import NavBar from './components/navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
 import './App.css';
 import Signup from './components/signup';
 
@@ -43,29 +41,28 @@ function App() {
   }
   
   return (
-
     <div>
       <Router>
         <NavBar />
         <Routes>
-          <Route exact path="/login" element={
+          <Route exact path="/" element={
             <Login />
           }/>
+
          <Route exact path="/signup" element={
             <Signup />
           }/>
-          <Route exact path="/browsing" element={
+          <Route exact path="/dating" element={
             <Browsing
               allProfiles={allProfiles}
-            />
           }/>
-          <Route exact path="/likesmatches" element={
+          <Route path="/likesmatches" element={
             <LikesMatches />
           }/>
-          <Route exact path="/profile" element={
+          <Route path="/profile" element={
             <Profile />
           }/>
-          <Route exact path="/about" element={
+          <Route path="/about" element={
             <About />
           }/>
         </Routes>

@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react';
 
 export default function About(){
@@ -30,5 +31,4 @@ export default function About(){
         </div>
 
     )
-    
 }
