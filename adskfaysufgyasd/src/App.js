@@ -39,6 +39,16 @@ function App() {
   }
 
   const addProfile = (profile) => setAllProfiles(current => [...current, profile])
+
+  const updateProfile = (updatedProfile) => setAllProfiles(current => {
+    return current.map(profile => {
+     if(profile.id === updatedProfile.id){
+       return updatedProfile
+     } else {
+       return profile
+     }
+    })
+  })
   
   return (
     <div>
@@ -51,12 +61,13 @@ function App() {
             <Signup 
               onFetchProfiles={() => fetchProfiles()}
               addProfile={addProfile}
+              updateProfile={updateProfile}
             />
           }/>
           <Route exact path="/dating" element={
             <Browsing
-              allProfiles={allProfiles}
               current_user_id={currentUser.id}
+              allProfiles={allProfiles}
             />
           }/>
           <Route path="/likesmatches" element={
@@ -65,6 +76,7 @@ function App() {
           <Route path="/profile" element={
             <Profile
               currentUser={currentUser}
+              updateProfile={updateProfile}
             />
           }/>
           <Route path="/about" element={

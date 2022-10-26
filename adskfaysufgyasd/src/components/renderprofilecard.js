@@ -6,11 +6,13 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
     const [isClicked, setIsClicked] = useState(false);
     const [car, setCar] = useState(false);
 
-    console.log(thisCardUserData)
+    //console.log(thisCardUserData)
 
 
     function handleLike(e){
-        e.preventDefault();
+        //e.preventDefault();
+        console.log('current user', current_user_id)
+        console.log('that profile', thisCardUserData.id)
         fetch('/likes', {
             method: 'POST',
             headers: {
@@ -24,6 +26,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
                 if(r.ok){
                     r.json().then(data => {
                         console.log(data)
+                        console.log('a like was made')
                     })
                 } else {
                     r.json().then(json => console.log(json.errors))
@@ -33,7 +36,9 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
     }
 
     function handleDislike(e){
-        e.preventDefault();
+        //e.preventDefault();
+        console.log('current user', current_user_id)
+        console.log('that profile', thisCardUserData.id)
         fetch('/skips', {
             method: 'POST',
             headers: {
@@ -47,6 +52,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
                 if(r.ok){
                     r.json().then(data => {
                         console.log(data)
+                        console.log('me no likey')
                     })
                 } else {
                     r.json().then(json => console.log(json.errors))
@@ -66,8 +72,8 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
             <h4 className="ml-[5%] text-mg text-black font-bold w-fit">{thisCardUserData.first_name} <span className="p-0 m-0 w-fit text-sm text-gray-600">{'maybe where age will go'}</span></h4>
             <p className="ml-[5%] text-sm text-gray-600 font-bold">Truck Brand: {truck_brand}</p>
             <div className="flex [&>*]:mx-[8%] [&>*]:hover:cursor-pointer flex-row items-center w-full justify-center pb-2 mt-2">
-                <img onClick={() => handleLike} className="h-10 w-10" src="https://cdn-icons-png.flaticon.com/512/1182/1182720.png"/>
-                <img onClick={() => handleDislike} className="h-10 w-10" src="https://cdn-icons-png.flaticon.com/512/1533/1533919.png"/>
+                <img onClick={() => handleLike()} className="h-10 w-10" src="https://cdn-icons-png.flaticon.com/512/1182/1182720.png"/>
+                <img onClick={() => handleDislike()} className="h-10 w-10" src="https://cdn-icons-png.flaticon.com/512/1533/1533919.png"/>
                 <img onClick={() => setIsClicked(!isClicked)} src="https://cdn-icons-png.flaticon.com/512/5791/5791540.png" className="h-10 w-10" alt="flip"/>
             </div>
         </>

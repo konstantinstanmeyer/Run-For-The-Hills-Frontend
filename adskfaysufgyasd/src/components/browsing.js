@@ -4,7 +4,7 @@ import {v4 as uuid} from "uuid";
 import { Link } from "react-router-dom";
 
 
-export default function Browsing({ allProfiles }) {
+export default function Browsing({ allProfiles, current_user_id }) {
 
 
     console.log(allProfiles)
@@ -40,6 +40,7 @@ export default function Browsing({ allProfiles }) {
                             pontoon_boat={eachProfile['pontoon_boat?']}
                             security_goat={eachProfile['security_goat?']}
                             thisCardUserData={eachProfile['user']}
+                            current_user_id={current_user_id}
                             
 
                         />
