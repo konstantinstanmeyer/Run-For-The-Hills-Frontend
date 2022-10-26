@@ -71,7 +71,10 @@ function App() {
             />
           }/>
           <Route path="/likesmatches" element={
-            <LikesMatches />
+            <LikesMatches
+              currentUser={currentUser}
+              allProfiles={allProfiles}
+            />
           }/>
           <Route path="/profile" element={
             <Profile

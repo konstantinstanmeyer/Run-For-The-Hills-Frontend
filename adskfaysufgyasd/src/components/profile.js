@@ -8,6 +8,13 @@ export default function Profile({currentUser}){
 
     const [clicked, setClicked] = useState(true)
 
+    const [userLikes, setUserLikes] = useState([])
+    const [userMatches, setUserMatches] = useState([])
+    const [userSkips, setUserSkips] = useState([])
+
+    
+
+
     //console.log(currentUser.profile)
     console.log(currentUser)
 

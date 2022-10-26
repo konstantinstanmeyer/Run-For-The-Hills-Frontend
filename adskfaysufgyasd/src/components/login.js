@@ -50,6 +50,7 @@ export default function Login(){
             r.json().then(data => {
               setUserData(data)
               console.log(data)
+              navigate('/profile')
             })
           } else {
             r.json().then(json => console.log(json.errors))

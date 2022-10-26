@@ -9,16 +9,50 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
     //console.log(thisCardUserData)
 
 
-    function handleLike(e){
-        //e.preventDefault();
-        const likeObj = {
-            user_id: current_user_id,
-            received_id: thisCardUserData.id
-            //match_id: 1
-        }
-        console.log(likeObj)
+    function handleLike(){
+
         console.log('current user', current_user_id)
         console.log('that profile', thisCardUserData.id)
+
+        const matchPostObj = {
+            user1_id: current_user_id,
+            user2_id: thisCardUserData.id,
+            didtheymatch: false
+        }
+
+        console.log(matchPostObj)
+        
+        fetch('/matches', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(matchPostObj)
+        })
+        .then(r => {
+            if(r.ok){
+                r.json().then(data => {
+                    console.log(data)
+                    postLike(data.id)
+                    console.log('a match instance was created')
+                })
+            } else {
+                r.json().then(json => console.log(json.errors))
+            }
+        })
+    }
+
+
+    const postLike = (matchID) => {
+
+        const likeObj = {
+            user_id: current_user_id,
+            received_id: thisCardUserData.id,
+            match_id: matchID
+        }
+
+        console.log(likeObj)
+
         fetch('/likes', {
             method: 'POST',
             headers: {
@@ -38,8 +72,13 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
         })
     }
 
-    function handleDislike(e){
-        //e.preventDefault();
+    function handleDislike(){
+
+        const dislikeObj = {
+            user_id: current_user_id,
+            rejected_id: thisCardUserData.id
+        }
+
         console.log('current user', current_user_id)
         console.log('that profile', thisCardUserData.id)
         fetch('/skips', {
@@ -47,10 +86,8 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                sent_id: current_user_id,
-                received_id: thisCardUserData.id,
-            })
+            body: JSON.stringify(dislikeObj)
+        })
             .then(r => {
                 if(r.ok){
                     r.json().then(data => {
@@ -61,7 +98,6 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
                     r.json().then(json => console.log(json.errors))
                 }
             })
-        })
     }
 
     const profileCardFront = (
