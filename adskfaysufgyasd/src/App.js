@@ -12,7 +12,7 @@ import Signup from './components/signup';
 function App() {
   const [allProfiles, setAllProfiles] = useState([])
   const [errors, setErrors] = useState(false)
-  const [currentUser, setCurrentUser] = useState()
+  const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
     fetch("/authorized_user")
@@ -54,6 +54,7 @@ function App() {
           <Route exact path="/dating" element={
             <Browsing
               allProfiles={allProfiles}
+              current_user_id={currentUser.id}
             />
           }/>
           <Route path="/likesmatches" element={
