@@ -11,6 +11,10 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
 
     function handleLike(e){
         //e.preventDefault();
+        const likeObj = {
+            sent_id: current_user_id,
+            received_id: thisCardUserData.id,
+        }
         console.log('current user', current_user_id)
         console.log('that profile', thisCardUserData.id)
         fetch('/likes', {
@@ -18,20 +22,17 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                sent_id: current_user_id,
-                received_id: thisCardUserData.id,
-            })
-            .then(r => {
-                if(r.ok){
-                    r.json().then(data => {
-                        console.log(data)
-                        console.log('a like was made')
-                    })
-                } else {
-                    r.json().then(json => console.log(json.errors))
-                }
-            })
+            body: JSON.stringify(likeObj)
+        })
+        .then(r => {
+            if(r.ok){
+                r.json().then(data => {
+                    console.log(data)
+                    console.log('a like was made')
+                })
+            } else {
+                r.json().then(json => console.log(json.errors))
+            }
         })
     }
 
