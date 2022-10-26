@@ -1,0 +1,22 @@
+#car {
+    left: 90px;
+}
+
+#car:hover {
+    animation-name: carMove; 
+    animation-duration: 0.5s;
+    animation-fill-mode:forwards;
+}
+
+@keyframes carMove {
+    from {
+        padding-left:89;
+        padding-right: 0;
+        left: 90px;
+    }
+    to {
+        left: 20px;
+        padding-left:0;
+        padding-right: 89;
+    }
+}

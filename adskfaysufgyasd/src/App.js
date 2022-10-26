@@ -56,6 +56,7 @@ function App() {
           <Route exact path="/dating" element={
             <Browsing
               allProfiles={allProfiles}
+              current_user_id={currentUser.id}
             />
           }/>
           <Route path="/likesmatches" element={
