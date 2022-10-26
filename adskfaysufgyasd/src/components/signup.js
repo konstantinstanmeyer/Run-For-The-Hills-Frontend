@@ -11,6 +11,7 @@ export default function Signup({onFetchProfiles, addProfile }){
     const [lastNameCreate, setLastNameCreate] = useState('')
     const [hasNotSubmitted, setHasNotSubmitted] = useState(true)
     const [errors, setErrors] = useState([])
+    const [profileID, setProfileID] = useState('')
 
     //const history = useHistory()
 
@@ -34,7 +35,7 @@ export default function Signup({onFetchProfiles, addProfile }){
             r.json().then(data => {
                 console.log(data)
                 createEmptyProfile(data.id)
-                setData(data => data)
+                setData(() => data)
                 //history.push(`/users/${data.id}`)
                 setHasNotSubmitted(() => false)
                 onFetchProfiles()
@@ -59,28 +60,17 @@ export default function Signup({onFetchProfiles, addProfile }){
         })
         .then(res => {
           if(res.ok){
-            res.json().then(console.log(res))
+            res.json().then(data2 => {
+            addProfile()
+            console.log(data2)
+            setProfileID(() => data2.id)
             console.log('hwody')
-          }else {
-            res.json().then(data => setErrors(data.error))
+            })
+          } else {
+            res.json().then(data2 => setErrors(data2.error))
           }
         })
     }
-
-    // const [profileData, setProfileData] = useState({
-    //     beard_length: undefined,
-    //     truck_brand:'',
-    //     mode_of_tobacco:'',
-    //     moonshine_abv_level: undefined,
-    //     security_goat?: undefined,
-    //     pontoon_boat?: undefined,
-    //     profile_picture: '',
-    //     photo_png: '',
-    //     rodeo_buckles: undefined,
-    //     user_id: userData.id
-    // })
-
-
     
 
     return (
@@ -101,9 +91,8 @@ export default function Signup({onFetchProfiles, addProfile }){
                 <p>Welcome to RFTH, {data.first_name}!</p>
                 <p>Let's set up your profile to get you fishing for your perfect catch:</p>
                 <ProfileForm
-                    // restTYPE={'POST'}
-                    // userData={data}
-                    // addProfile={addProfile}
+                    profileID={profileID}
+                    userID={data.id}
                 />
             </div>
         }
