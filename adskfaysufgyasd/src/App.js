@@ -14,14 +14,13 @@ function App() {
   const [currentUser, setCurrentUser] = useState({})
 
   useEffect(() => {
-    fetchProfiles()
     fetch("/authorized_user")
     .then((res) => {
       if (res.ok) {
         res.json()
         .then((user) => {
           setCurrentUser(user);
-          //fetchProfiles()
+          fetchProfiles()
           console.log(currentUser)
         });
       }
@@ -32,12 +31,14 @@ function App() {
     fetch('/profiles')
     .then(res => {
       if(res.ok){
-        res.json().then(() => setAllProfiles)
+        res.json().then(setAllProfiles)
       }else {
         res.json().then(data => setErrors(data.error))
       }
     })
   }
+
+  const addProfile = (profile) => setAllProfiles(current => [...current, profile])
   
   return (
     <div>
@@ -47,7 +48,10 @@ function App() {
             <Login />
           }/>
          <Route exact path="/signup" element={
-            <Signup />
+            <Signup 
+              onFetchProfiles={() => fetchProfiles()}
+              addProfile={addProfile}
+            />
           }/>
           <Route exact path="/dating" element={
             <Browsing

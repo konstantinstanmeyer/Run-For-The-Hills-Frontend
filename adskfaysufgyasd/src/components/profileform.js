@@ -3,15 +3,11 @@ import React, { useState } from 'react';
 // TO DO
 // gonna need some on submit thing that changes the form to be closed and then links to see your likes or to see some fish
 
-export default function ProfileForm({ restTYPE, data }){
+export default function ProfileForm({ userID, addProfile }){
 
-  let profileID=0
 
-  console.log(data)
+  //console.log(userData)
 
-  // TO DO
-  // the userID is good
-  // use session to get profile id from user id??
     
     const [formData, setFormData] = useState({
         beardLength: undefined,
@@ -22,8 +18,9 @@ export default function ProfileForm({ restTYPE, data }){
         pontoonBoat: undefined,
         profilePic: '',
         photoPng: '',
-        rodeoBuckles: undefined
-      })
+        rodeoBuckles: undefined,
+        //user_ID: userData.id
+    })
       
       const [errors, setErrors] = useState([])
     
@@ -31,28 +28,28 @@ export default function ProfileForm({ restTYPE, data }){
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
       }
-    
-      // TO DO
-      // gonna be tricky with create vs edit profile
-      // this is for CREATE
+  
+      
       function onSubmit(e){
         e.preventDefault()
 
-       // fetch(`/profiles/${profileID}` 
-        fetch('/profiles',{
-          method: restTYPE,
-          headers: {'Content-Type': 'application/json'},
-          body:JSON.stringify({...formData, ongoing:true})
-        })
-        .then(res => {
-          if(res.ok){
-            console.log('hwody')
-            //res.json().then(addProfile)
-          } else {
-            //Display errors
-            res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
-          }
-        })
+        if ('aples' == 'POST') {
+          fetch('/profiles',{
+            method: 'PATCH',
+            headers: {'Content-Type': 'application/json'},
+            body:JSON.stringify({...formData, ongoing:true})
+          })
+          .then(res => {
+            if(res.ok){
+              console.log('hwody')
+              res.json().then(addProfile)
+
+            } else {
+              //Display errors
+              res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+            }
+          })
+        }
       }
         return (
           <div>

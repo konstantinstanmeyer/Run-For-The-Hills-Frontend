@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 export default function Browsing({ allProfiles }) {
 
+    console.log(allProfiles)
+
 
     return (
 
