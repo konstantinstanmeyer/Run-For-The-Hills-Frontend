@@ -58,7 +58,6 @@ export default function ProfileForm({ profileID, userID, updateProfile }){
           <div>
             {hasNotSubmitted ?
               <div>
-                <p>Edit Your Profile!</p>
                 <br/><br/>
               {errors?errors.map(e => <div>{e}</div>):null}
               <form onSubmit={onSubmit}>
