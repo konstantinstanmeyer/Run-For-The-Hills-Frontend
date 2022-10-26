@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import style from "../car.module.css";
 
 
-export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buckles, truck_brand, mode_of_tobacco, pontoon_boat, security_goat, name, current_user_id, user_id, thisuser }){
+export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buckles, truck_brand, mode_of_tobacco, pontoon_boat, security_goat, current_user_id, thisCardUserData }){
     const [isClicked, setIsClicked] = useState(false);
     const [car, setCar] = useState(false);
+
+    console.log(thisCardUserData)
 
 
     function handleLike(e){
@@ -16,7 +18,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
             },
             body: JSON.stringify({
                 sent_id: current_user_id,
-                received_id: user_id,
+                received_id: thisCardUserData.id,
             })
             .then(r => {
                 if(r.ok){
@@ -39,7 +41,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
             },
             body: JSON.stringify({
                 sent_id: current_user_id,
-                received_id: user_id,
+                received_id: thisCardUserData.id,
             })
             .then(r => {
                 if(r.ok){
@@ -60,7 +62,8 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
                 alt={"where the picture will be"}
                 className="rounded-md w-[90%] m-auto mt-4 mb-2"
             />
-            <h4 className="ml-[5%] text-mg text-black font-bold w-fit">{name} <span className="p-0 m-0 w-fit text-sm text-gray-600">14</span></h4>
+            {/* <h2>{thisCardUserData.first_name}</h2> */}
+            <h4 className="ml-[5%] text-mg text-black font-bold w-fit">{thisCardUserData.first_name} <span className="p-0 m-0 w-fit text-sm text-gray-600">{'maybe where age will go'}</span></h4>
             <p className="ml-[5%] text-sm text-gray-600 font-bold">Truck Brand: {truck_brand}</p>
             <div className="flex [&>*]:mx-[8%] [&>*]:hover:cursor-pointer flex-row items-center w-full justify-center pb-2 mt-2">
                 <img onClick={() => handleLike} className="h-10 w-10" src="https://cdn-icons-png.flaticon.com/512/1182/1182720.png"/>
@@ -72,7 +75,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
 
     const profileCardBack = (
         <>
-            <h2>{"full name"}</h2>
+            <h2>{thisCardUserData.first_name} {thisCardUserData.last_name}</h2>
             <p>Beard Length 🧔‍♀️ : {beard}</p>
             <p>Preffered Tobaccy 🚬: {mode_of_tobacco}</p>
             <p>Moonshine Strength 💪: {moonshine}</p>
