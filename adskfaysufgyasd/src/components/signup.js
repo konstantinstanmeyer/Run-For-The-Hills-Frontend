@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import ProfileForm from './profileform';
 //import {useHistory} from 'react-router-dom'
 
-export default function Signup({onFetchProfiles, addProfile }){
+export default function Signup({onFetchProfiles, addProfile, updateProfile }){
 
     const [data, setData] = useState("")
     const [emailCreate, setEmailCreate] = useState("")
@@ -93,6 +93,7 @@ export default function Signup({onFetchProfiles, addProfile }){
                 <ProfileForm
                     profileID={profileID}
                     userID={data.id}
+                    updateProfile={updateProfile}
                 />
             </div>
         }
