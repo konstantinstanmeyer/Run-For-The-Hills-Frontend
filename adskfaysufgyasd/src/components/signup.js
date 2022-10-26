@@ -61,10 +61,10 @@ export default function Signup({onFetchProfiles, addProfile, updateProfile }){
         .then(res => {
           if(res.ok){
             res.json().then(data2 => {
-            addProfile()
-            console.log(data2)
-            setProfileID(() => data2.id)
-            console.log('hwody')
+                addProfile()
+                console.log(data2)
+                setProfileID(() => data2.id)
+                console.log('hwody')
             })
           } else {
             res.json().then(data2 => setErrors(data2.error))
