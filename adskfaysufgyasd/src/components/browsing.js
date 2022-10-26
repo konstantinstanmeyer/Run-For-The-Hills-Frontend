@@ -95,12 +95,7 @@ export default function Browsing({ allProfiles, current_user_id }) {
             Time to get spicy 🌶️ 🫑 🥵
 
             <br/><br/>
-            
-            <div className="profile-browsing">
-            
-                {allProfiles.map((eachProfile) =>
-                        <RenderProfileCard
-                            key={uuid()}
+        
             <div id="browsing-sidebar" className="fixed left-0 w-1/4 bg-white h-full">
             <p>
                 Tired of searching?? Check out your <Link to="/likesmatches"> likes and matches</Link> instead! 
@@ -129,8 +124,7 @@ export default function Browsing({ allProfiles, current_user_id }) {
                     )
                 }
             </div>
-            {*</div>*}
         </div>
-    )
+    </div>
+    )}
     
-}
