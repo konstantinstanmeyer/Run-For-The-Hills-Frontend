@@ -4,10 +4,9 @@ import Profile from './components/profile'
 import Browsing from './components/browsing'
 import LikesMatches from './components/likesmatches'
 import About from './components/about'
-import NavBar from './components/navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
-import Signup from './components/signup';
+import Signup from './components/signup'
 
 function App() {
   const [allProfiles, setAllProfiles] = useState([])
@@ -38,18 +37,21 @@ function App() {
       }
     })
   }
+
+  const addProfile = (profile) => setAllProfiles(current => [...current, profile])
   
   return (
     <div>
       <Router>
-        {/* <NavBar /> */}
         <Routes>
           <Route exact path="/" element={
             <Login />
           }/>
-
          <Route exact path="/signup" element={
-            <Signup />
+            <Signup 
+              onFetchProfiles={() => fetchProfiles()}
+              addProfile={addProfile}
+            />
           }/>
           <Route exact path="/dating" element={
             <Browsing
@@ -61,7 +63,9 @@ function App() {
             <LikesMatches />
           }/>
           <Route path="/profile" element={
-            <Profile />
+            <Profile
+              currentUser={currentUser}
+            />
           }/>
           <Route path="/about" element={
             <About />

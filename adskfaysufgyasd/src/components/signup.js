@@ -1,37 +1,103 @@
 import React, { useState } from 'react';
+import ProfileForm from './profileform';
+//import {useHistory} from 'react-router-dom'
 
-export default function Signup(){
-    const [data, setData] = useState({});
-    const [email, setEmail] = useState("");
-    const [closed, setClosed] = useState(false);
-    const [password, setPassword] = useState("");
+export default function Signup({onFetchProfiles, addProfile, updateProfile }){
+
+    const [data, setData] = useState("")
+    const [emailCreate, setEmailCreate] = useState("")
+    const [passwordCreate, setPasswordCreate] = useState("")
+    const [firstNameCreate, setFirstNameCreate] = useState('')
+    const [lastNameCreate, setLastNameCreate] = useState('')
+    const [hasNotSubmitted, setHasNotSubmitted] = useState(true)
+    const [errors, setErrors] = useState([])
+    const [profileID, setProfileID] = useState('')
+
+    //const history = useHistory()
 
     function handleSubmitCreate(e){
         e.preventDefault();
         const user = {
-            email: email,
-            password: password,
+            email: emailCreate,
+            password: passwordCreate,
+            first_name: firstNameCreate,
+            last_name: lastNameCreate
         }
         fetch('/users', {
             method: 'POST',
             headers: {
-            'Content-Type': 'application/json'
+                'Content-Type': 'application/json'
             },
             body:JSON.stringify(user)
         })
         .then(r => {
             if(r.ok){
             r.json().then(data => {
-                setData(data)
                 console.log(data)
+                createEmptyProfile(data.id)
+                setData(() => data)
+                //history.push(`/users/${data.id}`)
+                setHasNotSubmitted(() => false)
+                onFetchProfiles()
             })
             } else {
             r.json().then(json => console.log(json.errors))
             }
         })
-    }   
+    } 
+
+    const createEmptyProfile = (id) => {
+        const blankObj = {
+            user_id: id
+        }
+        console.log(blankObj.user_id)
+        fetch('/profiles', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body:JSON.stringify(blankObj)
+        })
+        .then(res => {
+          if(res.ok){
+            res.json().then(data2 => {
+            addProfile()
+            console.log(data2)
+            setProfileID(() => data2.id)
+            console.log('hwody')
+            })
+          } else {
+            res.json().then(data2 => setErrors(data2.error))
+          }
+        })
+    }
+    
 
     return (
+    <div>
+        {hasNotSubmitted ?
+            <div id="singup-form">
+                <p>Create Account</p>
+                <form onSubmit={handleSubmitCreate}>
+                    <input value={emailCreate} onChange={e => setEmailCreate(e.target.value)} type="text" placeholder="email"></input>
+                    <input  value={passwordCreate} onChange={e => setPasswordCreate(e.target.value)} type="password" placeholder="password"></input>
+                    <input  value={firstNameCreate} onChange={e => setFirstNameCreate(e.target.value)} type="text" placeholder="first name"></input>
+                    <input  value={lastNameCreate} onChange={e => setLastNameCreate(e.target.value)} type="text" placeholder="last name"></input>
+                    <button type="submit">submit</button>
+                </form>
+            </div>
+            :
+            <div>
+                <p>Welcome to RFTH, {data.first_name}!</p>
+                <p>Let's set up your profile to get you fishing for your perfect catch:</p>
+                <ProfileForm
+                    profileID={profileID}
+                    userID={data.id}
+                    updateProfile={updateProfile}
+                />
+            </div>
+        }
+
     <div className="fixed h-screen w-screen bg-[url(https://images.unsplash.com/photo-1590930180621-fc7027a21559?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1771&q=80)]">
       <div className="bg-lime-300/30 overflow-auto backdrop-blur-sm relative top-[20%] m-auto w-1/2 h-2/3 rounded-md">
         <h2 className="text-center mb-8 mt-12 text-4xl font-bold text-white">Sign Up</h2>

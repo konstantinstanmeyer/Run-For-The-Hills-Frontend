@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import style from "../car.module.css";
 
-export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buckles, truck_brand, mode_of_tobacco, pontoon_boat, security_goat, name, current_user_id, user_id }){
+
+export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buckles, truck_brand, mode_of_tobacco, pontoon_boat, security_goat, name, current_user_id, user_id, thisuser }){
     const [isClicked, setIsClicked] = useState(false);
     const [car, setCar] = useState(false);
+
 
     function handleLike(e){
         e.preventDefault();
@@ -79,6 +81,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
             <p className="ml-[5%] text-sm text-gray-600 font-bold">I have {rodeo_buckles} buckles 😎 🏇 😤</p>
             <img onClick={() => setIsClicked(!isClicked)} src="https://cdn-icons-png.flaticon.com/512/5791/5791540.png" className="h-10 w-10" alt="flip"/>
         </>
+
     )
 
     return(
