@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import {v4 as uuid} from "uuid";
 
 import SimpleLikesCard from './simpleLikesCard';
+import MatchesCard from './matchesCard';
 
 export default function LikesMatches({ currentUser, allProfiles, allLikes, allMatches, updateMatches }){
 
@@ -12,7 +13,7 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
     // array of profiles of everyone who has liked the current user 
     const [whoLikesUser, setWhoLikesUser] = useState([])
     
-    // array of account ids of everyone who has liked that user
+    // array of profiles of everyone who has liked that user
     const [userMatches, setUserMatches] = useState([])
     
     // array of account ids of everyone who the current user has skipped
@@ -73,12 +74,9 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
           res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
         }
       })
-
+      //setUserMatches(() => [...userMatches, allMatches.filter(match => match.didtheymatch == true)])
     }
     
-
-
-
 
     return (
         <div>
@@ -104,6 +102,29 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
                             current_user_id={currentUser.id}
                             allMatches={allMatches}
                             onMakeAMatch={(match) => handleMakeAMatch(match)}
+                        />
+                    )
+                }
+            </div>
+
+            <br/><br/>
+            <div>
+                you got some steammmmmyy matches dammnn....
+            </div>
+            <div id="who-likes-user-list" className="w-3/4 flex flex-wrap mt-20 ml-auto">
+                {userMatches.map((eachProfile) =>
+                        <MatchesCard
+                            key={uuid()}
+                            picture={eachProfile.profile_picture}
+                            beard={eachProfile.beard_length}
+                            moonshine={eachProfile.moonshine_abv_level}
+                            rodeo_buckles={eachProfile.rodeo_buckles}
+                            truck_brand={eachProfile.truck_brand}
+                            mode_of_tobacco={eachProfile.mode_of_tobacco}
+                            pontoon_boat={eachProfile['pontoon_boat?']}
+                            security_goat={eachProfile['security_goat?']}
+                            firstName={eachProfile['user'].first_name}
+                            lastName={eachProfile['user'].last_name}
                         />
                     )
                 }

@@ -9,9 +9,7 @@ export default function SimpleLikesCard({ picture, firstName, lastName, moonshin
     let potentialMatches = allMatches.filter(match => match.user2_id == current_user_id)
 
     function handleLikeBack() {
-        console.log(potentialMatches)
         potentialMatches.forEach(match => {
-            //console.log(match)
             if (match.user1_id == thisCardUserData.id) {
                 onMakeAMatch(match)
             }
