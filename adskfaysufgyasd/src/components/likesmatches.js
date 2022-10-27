@@ -26,11 +26,28 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
     const [userLikes, setUserLikes] = useState([])
 
     useEffect(() => {
-      settingWhoLikesUserDrama()
+      //settingWhoLikesUserDrama()
+      settingInitialMatchesDrama()
     },[])
 
+    function settingInitialMatchesDrama() {
+      let forcedStateArray = []
+      let truthyMatches = allMatches.filter(match => match.didtheymatch == true)
+      truthyMatches.forEach(trueMatch => {
+        allProfiles.forEach(profile => {
+          if (trueMatch.user2_id == currentUser.id && trueMatch.user1_id == profile.user_id) {
+            console.log('profiles that are already matched', profile)
+            forcedStateArray.push(profile)
+          }
+        })
+      })
+      console.log(forcedStateArray)
+      setUserMatches(() => forcedStateArray)
+      settingWhoLikesUserDrama(forcedStateArray)
+    }
 
-    function settingWhoLikesUserDrama() {
+
+    function settingWhoLikesUserDrama(forcedStateArray) {
 
       // finds the entries from all the like instances in the db that pertain to the current user
       let relevantLikeEntries = allLikes.filter(like => like.received_id == currentUser.id)
@@ -44,15 +61,22 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
       let relevantLikerProfiles = []
       relevantLikerID.forEach(id => {
         allProfiles.forEach(profile => {
-          if (profile.user_id == id) {
+          if (profile.user_id == id ) {
             relevantLikerProfiles.push(profile)
           }
         })
       })
 
-      //console.log('the liker profiles', relevantLikerProfiles)
-      setWhoLikesUser(() => relevantLikerProfiles)
+      let exludingExsistingMatches = []
+      forcedStateArray.forEach(profile => {
+        relevantLikerProfiles.forEach(likerProfile => {
+          if (likerProfile.user_id != profile.user_id) {
+            exludingExsistingMatches.push(likerProfile)
+          }
+        })
+      })
 
+      setWhoLikesUser(() => exludingExsistingMatches)
     }
 
     const handleMakeAMatch = (match) => {
@@ -75,10 +99,6 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
         }
       })
 
-      //let correspondingOtherUserProfile = []
-      //matchesIDs.push((allMatches.filter(match => match.didtheymatch == true)).id)
-      //console.log(matchesIDs)
-
       allProfiles.forEach(profile => {
         if (profile.user_id == match.user1_id) {
           console.log(profile)
@@ -86,9 +106,25 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
         }
       })
 
+      // very VERY undry code but running out of time ya know?
+      let excludeTheMatches = []
+      whoLikesUser.forEach(likerProfile =>{
+        if (likerProfile.user_id != match.user1_id) {
+          excludeTheMatches.push(likerProfile)
+        }
+      })
+
+      setWhoLikesUser(() => excludeTheMatches)
+
+
+      
+      //setWhoLikesUser(() => [whoLikesUser.filter(profile => profile.user_id != match.user1_id)])
+      //console.log(whoLikesUser)
+      //console.log(whoLikesUser.filter(profile => profile.user_id != match.user1_id))
 
       //setUserMatches(() => [...userMatches, allMatches.filter(match => match.didtheymatch == true)])
     }
+
     
 
     return (

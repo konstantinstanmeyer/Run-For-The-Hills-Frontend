@@ -17,6 +17,10 @@ export default function Profile({currentUser}){
                     Check out your catches!
             </button>
             <br/><br/>
+            <button onClick={() => navigate("/dating")}>
+                    Check out the eligible singles!
+            </button>
+            <br/><br/>
             <button onClick={() => setClicked(!clicked)}> 
                 <p>Edit Your Profile!</p>
             </button>
@@ -28,6 +32,7 @@ export default function Profile({currentUser}){
                     userID={currentUser.id}
                 />
             }
+
         </div>
 
     )
