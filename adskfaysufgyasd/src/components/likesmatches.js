@@ -74,6 +74,19 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
           res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
         }
       })
+
+      //let correspondingOtherUserProfile = []
+      //matchesIDs.push((allMatches.filter(match => match.didtheymatch == true)).id)
+      //console.log(matchesIDs)
+
+      allProfiles.forEach(profile => {
+        if (profile.user_id == match.user1_id) {
+          console.log(profile)
+          setUserMatches(() => [...userMatches, profile])
+        }
+      })
+
+
       //setUserMatches(() => [...userMatches, allMatches.filter(match => match.didtheymatch == true)])
     }
     
