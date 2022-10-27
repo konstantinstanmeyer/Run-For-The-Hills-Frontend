@@ -2,9 +2,21 @@ import React, { useState } from 'react';
 import style from "../car.module.css";
 
 
-export default function SimpleLikesCard({ picture, firstName, lastName, moonshine, beard, rodeo_buckles, truck_brand, security_goat, pontoon_boat, mode_of_tobacco }){
+export default function SimpleLikesCard({ picture, firstName, lastName, moonshine, beard, rodeo_buckles, truck_brand, security_goat, pontoon_boat, mode_of_tobacco, current_user_id, thisCardUserData, allMatches, onMakeAMatch }){
+    
     const [isClicked, setIsClicked] = useState(false);
-    const [car, setCar] = useState(false);
+
+    let potentialMatches = allMatches.filter(match => match.user2_id == current_user_id)
+
+    function handleLikeBack() {
+        console.log(potentialMatches)
+        potentialMatches.forEach(match => {
+            //console.log(match)
+            if (match.user1_id == thisCardUserData.id) {
+                onMakeAMatch(match)
+            }
+        })
+    }
 
 
 
@@ -17,6 +29,10 @@ export default function SimpleLikesCard({ picture, firstName, lastName, moonshin
             />
             <h4 className="ml-[5%] text-mg text-black font-bold w-fit">{firstName} <span className="p-0 m-0 w-fit text-sm text-gray-600">{'maybe where age will go'}</span></h4>
             <p className="ml-[5%] text-sm text-gray-600 font-bold">Truck Brand: {truck_brand}</p>
+            <div className="flex [&>*]:mx-[8%] [&>*]:hover:cursor-pointer flex-row items-center w-full justify-center pb-2 mt-2">
+                <img onClick={() => setIsClicked(!isClicked)} src="https://cdn-icons-png.flaticon.com/512/5791/5791540.png" className="h-10 w-10" alt="flip"/>
+                <img onClick={() => handleLikeBack()} className="h-10 w-10" src="https://cdn-icons-png.flaticon.com/512/1182/1182720.png"/>
+            </div>
         </>
     )
 

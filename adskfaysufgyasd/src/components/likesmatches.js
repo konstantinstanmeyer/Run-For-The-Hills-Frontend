@@ -4,9 +4,9 @@ import {v4 as uuid} from "uuid";
 
 import SimpleLikesCard from './simpleLikesCard';
 
-export default function LikesMatches({ currentUser, allProfiles, allLikes, allMatches }){
+export default function LikesMatches({ currentUser, allProfiles, allLikes, allMatches, updateMatches }){
 
-
+    const [errors, setErrors] = useState(false)
     const navigate = useNavigate();
 
     // array of profiles of everyone who has liked the current user 
@@ -23,11 +23,6 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
     
     // array of account ids of everyone who the current user has liked
     const [userLikes, setUserLikes] = useState([])
-
-    // console.log('currnet user from LM', currentUser)
-    // console.log('all likes from LM', allLikes)
-    // console.log('all profile user IDs from LM', allProfiles)
-    // console.log('all matches from LM', allMatches)
 
     useEffect(() => {
       settingWhoLikesUserDrama()
@@ -54,12 +49,32 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
         })
       })
 
-      console.log('the liker profiles', relevantLikerProfiles)
+      //console.log('the liker profiles', relevantLikerProfiles)
       setWhoLikesUser(() => relevantLikerProfiles)
 
     }
 
+    const handleMakeAMatch = (match) => {
+      //console.log(match)
+      const newTruth = {
+        didtheymatch: true
+      }
+      fetch(`/matches/${match.id}`,{
+        method:'PATCH',
+        headers: {'Content-Type': 'application/json'},
+        body:JSON.stringify(newTruth)
+      })
+      .then(res => {
+        if(res.ok){
+          res.json().then(updateMatches)
+          console.log('howdy from an updated match')
+        } else {
+          //Display errors
+          res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
+        }
+      })
 
+    }
     
 
 
@@ -85,6 +100,10 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
                             security_goat={eachProfile['security_goat?']}
                             firstName={eachProfile['user'].first_name}
                             lastName={eachProfile['user'].last_name}
+                            thisCardUserData={eachProfile['user']}
+                            current_user_id={currentUser.id}
+                            allMatches={allMatches}
+                            onMakeAMatch={(match) => handleMakeAMatch(match)}
                         />
                     )
                 }
@@ -105,40 +124,3 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
 }
 
 
-
-
-    // fetch like data -> whever the recieved_id is == to the current_user_id is people who have already liked the current user
-    // useEffect(() => {
-    //     console.log(currentUser)
-    //     fetch("/likes")
-    //     .then((res) => {
-    //       if (res.ok) {
-    //         res.json().then((likeData) => {
-    //           //console.log(likeData)
-    //           // let relevantLikeData = likeData.filter(like => like.recieved_id == currentUser.id)
-    //           // console.log('relevant likes:', relevantLikeData)
-    //           // set who likes user array
-    //           // likeData.forEach((like) {
-    //           //   setWhoLikesUser([...whoLikesUser,() => allProfiles.filter(profile => profile['user'].id == like.)]
-    //           // })
-    //           handleLikeDrama(likeData)
-    //         });
-    //       }
-    //     })
-    //     fetch("/matches")
-    //     .then((res) => {
-    //       if (res.ok) {
-    //         res.json().then((matchData) => {
-    //           //console.log(matchData)
-    //         });
-    //       }
-    //     })
-    //     fetch("/skips")
-    //     .then((res) => {
-    //       if (res.ok) {
-    //         res.json().then((skipData) => {
-    //           //console.log(skipData)
-    //         });
-    //       }
-    //     })
-    //   },[])

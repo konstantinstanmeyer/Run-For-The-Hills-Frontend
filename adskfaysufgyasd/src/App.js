@@ -83,6 +83,16 @@ function App() {
      }
     })
   })
+
+  const updateMatches = (updatedMatch) => setAllMatches(current => {
+    return current.map(match => {
+     if(match.id === updatedMatch.id){
+       return updatedMatch
+     } else {
+       return match
+     }
+    })
+  })
   
   return (
     <div>
@@ -110,7 +120,7 @@ function App() {
               allProfiles={allProfiles}
               allLikes={allLikes}
               allMatches={allMatches}
-              allSkips={allSkips}
+              updateMatches={updateMatches}
             />
           }/>
           <Route path="/profile" element={
