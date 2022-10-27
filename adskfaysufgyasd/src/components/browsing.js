@@ -10,16 +10,9 @@ export default function Browsing({ allProfiles, current_user_id }) {
     console.log(allProfiles)
 
     return (
-        <div className="w-screen bg-no-repeat h-screen bg-bottom absolute bg-[url('https://images.unsplash.com/photo-1440428099904-c6d459a7e7b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80')]">
-            {/* <div className="absolute w-[100%] bg-white bg-bottom h-[50%] bg-no-repeat bg-[url('https://www.neefusa.org/sites/default/files/styles/article_hero/public/field/image/WEB16-ClimateChange-SoilLayersRoots-4740x2666.jpg?itok=8U4DBUb2')]"> */}
-
-        <div>
-            
-            Time to get spicy 🌶️ 🫑 🥵
-
-            <br/><br/>
-        
-            <div id="browsing-sidebar" className="fixed left-0 w-1/4 bg-white h-full">
+        <div className="">
+            <img className="w-screen h-screen object-cover fixed -z-10" src="https://images.unsplash.com/photo-1440428099904-c6d459a7e7b5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"/>     
+            <div id="browsing-sidebar" className="fixed left-0 w-1/4 bg-white/70 backdrop-blur-sm h-full">
             <p>
                 Tired of searching?? Check out your <Link to="/likesmatches"> likes and matches</Link> instead! 
             </p>
@@ -27,7 +20,7 @@ export default function Browsing({ allProfiles, current_user_id }) {
                 Time to get spicy 🌶️ 🫑 🥵
             </p>
             </div>
-            <div id="profile-list" className="w-3/4 flex flex-wrap mt-20 ml-auto">
+            <div id="profile-list" className="w-3/4 flex flex-wrap ml-auto">
                 {allProfiles.map((eachProfile) =>
                         <RenderProfileCard
                             key={uuid()}
@@ -41,19 +34,13 @@ export default function Browsing({ allProfiles, current_user_id }) {
                             security_goat={eachProfile['security_goat?']}
                             thisCardUserData={eachProfile['user']}
                             current_user_id={current_user_id}
-                            
-
                         />
                     )
                 }
             </div>
         </div>
-    </div>
-    )}
-
-
-
-
+    )
+}
         // let fakeProfiles =  [
     //     {
     //         id: 2,

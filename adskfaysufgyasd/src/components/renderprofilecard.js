@@ -95,7 +95,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
     )
 
     return(
-        <div className="w-1/4 h-2/4 ml-20 my-10 bg-white/70 backdrop-blur-sm rounded-md relative flex flex-col">
+        <div className="w-1/4 h-[50%] ml-20 my-10 bg-white/70 backdrop-blur-sm rounded-md relative flex flex-col">
             {isClicked ? profileCardBack : profileCardFront}
             {/* <img id={style.car} className="h-10 w-10 absolute bottom-2 z-10" src="https://cdn-icons-png.flaticon.com/512/5440/5440927.png" alt="car"/>
             <img className="h-20 ml-4 -bottom-3 absolute z-0" src="https://cdn-icons-png.flaticon.com/512/358/358726.png" alt="road"/>
