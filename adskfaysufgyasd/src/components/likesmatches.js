@@ -10,9 +10,12 @@ export default function LikesMatches({ currentUser }){
 
     const navigate = useNavigate();
 
+    // 
     const [whoLikesUser, setWhoLikesUser] = useState([])
     const [userMatches, setUserMatches] = useState([])
     const [userSkips, setUserSkips] = useState([])
+    const [whoSkipped, setWhoSkipped] = useState([])
+    const [userLikes, setUserLikes] = useState([])
 
     // fetch like data -> whever the recieved_id is == to the current_user_id is people who have already liked the current user
     useEffect(() => {
@@ -21,6 +24,22 @@ export default function LikesMatches({ currentUser }){
           if (res.ok) {
             res.json().then((likeData) => {
               console.log(likeData)
+            });
+          }
+        })
+        fetch("/matches")
+        .then((res) => {
+          if (res.ok) {
+            res.json().then((matchData) => {
+              console.log(matchData)
+            });
+          }
+        })
+        fetch("/skips")
+        .then((res) => {
+          if (res.ok) {
+            res.json().then((skipData) => {
+              console.log(skipData)
             });
           }
         })
