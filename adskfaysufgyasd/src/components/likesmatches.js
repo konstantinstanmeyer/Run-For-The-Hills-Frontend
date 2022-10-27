@@ -4,46 +4,66 @@ import {v4 as uuid} from "uuid";
 
 import SimpleLikesCard from './simpleLikesCard';
 
-export default function LikesMatches({ currentUser }){
+export default function LikesMatches({ currentUser, allProfiles, allLikes, allMatches }){
 
-    console.log(currentUser)
 
     const navigate = useNavigate();
 
-    // 
+    // array of profiles of everyone who has liked the current user 
     const [whoLikesUser, setWhoLikesUser] = useState([])
+    
+    // array of account ids of everyone who has liked that user
     const [userMatches, setUserMatches] = useState([])
+    
+    // array of account ids of everyone who the current user has skipped
     const [userSkips, setUserSkips] = useState([])
-    const [whoSkipped, setWhoSkipped] = useState([])
+    
+    // array of account ids of everyone who has skipped the current user
+    const [whoSkippedUser, setWhoSkippedUser] = useState([])
+    
+    // array of account ids of everyone who the current user has liked
     const [userLikes, setUserLikes] = useState([])
 
-    // fetch like data -> whever the recieved_id is == to the current_user_id is people who have already liked the current user
+    // console.log('currnet user from LM', currentUser)
+    // console.log('all likes from LM', allLikes)
+    // console.log('all profile user IDs from LM', allProfiles)
+    // console.log('all matches from LM', allMatches)
+
     useEffect(() => {
-        fetch("/likes")
-        .then((res) => {
-          if (res.ok) {
-            res.json().then((likeData) => {
-              console.log(likeData)
-            });
+      settingWhoLikesUserDrama()
+    },[])
+
+
+    function settingWhoLikesUserDrama() {
+
+      // finds the entries from all the like instances in the db that pertain to the current user
+      let relevantLikeEntries = allLikes.filter(like => like.received_id == currentUser.id)
+      // console.log('relevnat likes', relevantLikeEntries)
+
+      // extracts the ids of the users who sent the current user a like
+      let relevantLikerID = []
+      relevantLikeEntries.forEach(like => relevantLikerID.push(like.user_id))
+
+      // updates state of all of the profiles who like the current user by going through id array and finding the profile
+      let relevantLikerProfiles = []
+      relevantLikerID.forEach(id => {
+        allProfiles.forEach(profile => {
+          if (profile.user_id == id) {
+            relevantLikerProfiles.push(profile)
           }
         })
-        fetch("/matches")
-        .then((res) => {
-          if (res.ok) {
-            res.json().then((matchData) => {
-              console.log(matchData)
-            });
-          }
-        })
-        fetch("/skips")
-        .then((res) => {
-          if (res.ok) {
-            res.json().then((skipData) => {
-              console.log(skipData)
-            });
-          }
-        })
-      },[])
+      })
+
+      console.log('the liker profiles', relevantLikerProfiles)
+      setWhoLikesUser(() => relevantLikerProfiles)
+
+    }
+
+
+    
+
+
+
 
     return (
         <div>
@@ -83,3 +103,42 @@ export default function LikesMatches({ currentUser }){
         </div>
     )
 }
+
+
+
+
+    // fetch like data -> whever the recieved_id is == to the current_user_id is people who have already liked the current user
+    // useEffect(() => {
+    //     console.log(currentUser)
+    //     fetch("/likes")
+    //     .then((res) => {
+    //       if (res.ok) {
+    //         res.json().then((likeData) => {
+    //           //console.log(likeData)
+    //           // let relevantLikeData = likeData.filter(like => like.recieved_id == currentUser.id)
+    //           // console.log('relevant likes:', relevantLikeData)
+    //           // set who likes user array
+    //           // likeData.forEach((like) {
+    //           //   setWhoLikesUser([...whoLikesUser,() => allProfiles.filter(profile => profile['user'].id == like.)]
+    //           // })
+    //           handleLikeDrama(likeData)
+    //         });
+    //       }
+    //     })
+    //     fetch("/matches")
+    //     .then((res) => {
+    //       if (res.ok) {
+    //         res.json().then((matchData) => {
+    //           //console.log(matchData)
+    //         });
+    //       }
+    //     })
+    //     fetch("/skips")
+    //     .then((res) => {
+    //       if (res.ok) {
+    //         res.json().then((skipData) => {
+    //           //console.log(skipData)
+    //         });
+    //       }
+    //     })
+    //   },[])

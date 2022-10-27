@@ -12,6 +12,9 @@ function App() {
   const [allProfiles, setAllProfiles] = useState([])
   const [errors, setErrors] = useState(false)
   const [currentUser, setCurrentUser] = useState({})
+  const [allLikes, setAllLikes] = useState([])
+  const [allMatches, setAllMatches] = useState([])
+  const [allSkips, setAllSkips] = useState([])
 
   useEffect(() => {
     fetch("/authorized_user")
@@ -21,10 +24,12 @@ function App() {
         .then((user) => {
           setCurrentUser(user);
           fetchProfiles()
+          fetchLikesMatchesSkips()
           console.log(currentUser)
         });
       }
     })
+    
   },[])
 
   const fetchProfiles = () => {
@@ -32,6 +37,35 @@ function App() {
     .then(res => {
       if(res.ok){
         res.json().then(setAllProfiles)
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+  }
+
+  const fetchLikesMatchesSkips = () => {
+    fetch('/likes')
+    .then(res => {
+      if(res.ok){
+        res.json().then(setAllLikes)
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+    fetch('/matches')
+    .then(res => {
+      if(res.ok){
+        res.json().then(setAllMatches)
+          //console.log(data)
+          //console.log(allMatches)
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+    fetch('/skips')
+    .then(res => {
+      if(res.ok){
+        res.json().then(setAllSkips)
       }else {
         res.json().then(data => setErrors(data.error))
       }
@@ -74,6 +108,9 @@ function App() {
             <LikesMatches
               currentUser={currentUser}
               allProfiles={allProfiles}
+              allLikes={allLikes}
+              allMatches={allMatches}
+              allSkips={allSkips}
             />
           }/>
           <Route path="/profile" element={

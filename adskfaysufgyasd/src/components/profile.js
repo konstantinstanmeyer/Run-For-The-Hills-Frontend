@@ -8,25 +8,32 @@ export default function Profile({currentUser}){
 
     const [clicked, setClicked] = useState(true)
 
-    const [userLikes, setUserLikes] = useState([])
-    const [userMatches, setUserMatches] = useState([])
-    const [userSkips, setUserSkips] = useState([])
+    // const [userLikes, setUserLikes] = useState([])
+    // const [userMatches, setUserMatches] = useState([])
+    // const [userSkips, setUserSkips] = useState([])
 
-    
 
 
     //console.log(currentUser.profile)
-    console.log(currentUser)
+    console.log('from porfile page',currentUser)
 
     return(
         <div>
+            <br/><br/>
+            <button onClick={() => navigate("/likesmatches")}>
+                    Check out your catches!
+            </button>
+            <br/><br/>
             <button onClick={() => setClicked(!clicked)}> 
                 <p>Edit Your Profile!</p>
             </button>
             {clicked ? 
                 null 
                 : 
-                <ProfileForm restTYPE={'PATCH'}/>
+                <ProfileForm 
+                    profileID={currentUser['profile'].id}
+                    userID={currentUser.id}
+                />
             }
         </div>
 
