@@ -27,7 +27,7 @@ export default function Profile({currentUser}){
 
     function onSubmit(e){
         e.preventDefault()
-        fetch(`/profiles/${currentUser.id}`,{
+        fetch(`/profiles/${currentUser.profile.id}`,{
           method:'PATCH',
           headers: {'Content-Type': 'application/json'},
           body:JSON.stringify(formData)
@@ -57,8 +57,6 @@ export default function Profile({currentUser}){
                     <img onClick={() => setClicked(!clicked)} src="https://cdn-icons-png.flaticon.com/512/1159/1159876.png" className="h-10 w-10 absolute right-5 top-20 hover:cursor-pointer"/>
                     <img className="w-32 mx-auto m-5 h-32 object-cover rounded-full" src={currentUser.profile_picture}/>
                     {!clicked ? <div>   
-                                    <p className="ml-[20%] text-lg font-semibold py-[1%]">{currentUser.first_name} {currentUser.last_name}</p>
-                                    <p className="ml-[20%] text-lg font-semibold py-[1%]">Email: <span className="text-sm">{currentUser.email}</span></p>
                                     <p className="ml-[20%] text-lg font-semibold py-[1%]">Beard Length: <span className="text-sm">{currentUser.profile.beard_length == null ? "N/A" : currentUser.profile.beard_length}</span></p>
                                     <p className="ml-[20%] text-lg font-semibold py-[1%]">Moonshine Abv. Level: <span className="text-sm">{currentUser.profile.moonshine_abv_level == null ? "N/A" : currentUser.profile.moonshine_abv_level}</span></p>
                                     <p className="ml-[20%] text-lg font-semibold py-[1%]">Truck Brand <span className="text-sm">{currentUser.profile.truck_brand == null ? "N/A" : currentUser.profile.truck_brand}</span></p>
@@ -68,10 +66,7 @@ export default function Profile({currentUser}){
                                 </div> : 
                                 <div>
                                     <form onSubmit={onSubmit} className="flex flex-col">
-                                        <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="first name" type="text" value={formData.first_name} onChange={handleChange}/>
-                                        <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="last name" type="text" value={formData.last_name} onChange={handleChange}/>
-                                        <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="email address" type="text" value={formData.email} onChange={handleChange}/>
-                                        <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="profile picture" type="text" value={formData.profile_picture} onChange={handleChange}/>
+                                        <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="profile picture" type="text" value={formData["profile_picture"]} onChange={handleChange}/>
                                         <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="beard length(in)" type="number" value={formData.beard_length} onChange={handleChange}/>
                                         <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="moonshine abv level" type="number" value={formData.moonshine_abv_level} onChange={handleChange}/>
                                         <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="truck brand" value={formData.truck_brand} type="text" onChange={handleChange}/>

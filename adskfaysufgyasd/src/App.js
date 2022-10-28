@@ -55,7 +55,7 @@ function App() {
       <Router>
         <Routes>
           <Route exact path="/" element={
-            <Login />
+            <Login setCurrentUser={setCurrentUser}/>
           }/>
          <Route exact path="/signup" element={
             <Signup 

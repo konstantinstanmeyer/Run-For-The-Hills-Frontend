@@ -49,6 +49,12 @@ export default function Browsing({ allProfiles, current_user_id }) {
     const displayedUsers = allProfiles.filter(checkProfile)
     console.log(allProfiles)
 
+    function handleSignout(){
+        fetch('/logout', {
+            method: 'DELETE',
+        })
+    }
+
     if (current_user_id === undefined) return (
         <div className="">
             <img className="w-screen h-screen object-cover bg-bottom fixed -z-10" src="https://www.onegreenplanet.org/wp-content/uploads/2018/02/screen-shot-2018-02-02-at-10-12-53-am.png"/>
@@ -132,6 +138,9 @@ export default function Browsing({ allProfiles, current_user_id }) {
                         </li>
                         <div className="ml-auto flex flex-row items-center">
                             <ul className="list-none p-0 flex flex-row mr-2">
+                                <li className="px-2">
+                                    <a onClick={handleSignout} className="hover:cursor-pointer hover:underline">Sign Out</a>
+                                </li>
                                 <li className="px-2">
                                     <a className="hover:cursor-pointer hover:underline">Matches</a>
                                 </li>

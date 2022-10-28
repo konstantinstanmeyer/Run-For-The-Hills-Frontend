@@ -3,8 +3,8 @@ import '../index.css'
 import { useNavigate } from 'react-router-dom';
 import LoadingScreen from './loadingscreen';
 
-export default function Login(){
-    const [background, setBackground] = useState("")
+export default function Login({ setCurrentUser }){
+    const [background, setBackground] = useState("");
     const [closed, setClosed] = useState(true);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -15,7 +15,6 @@ export default function Login(){
 
     useEffect(() => {
         let count = 0;
-        
         setBackground(randomBackground())
     }, [])
 
@@ -48,7 +47,7 @@ export default function Login(){
           if(r.ok){
             r.json().then(data => {
               setUserData(data)
-              console.log(data)
+              setCurrentUser(data)
               navigate('/dating')
             })
           } else {
