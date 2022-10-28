@@ -22,22 +22,7 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
     useEffect(() => {
       settingWhoLikesUserDrama()
     },[])
-
-    // array of profiles of everyone who has liked the current user 
-    const [whoLikesUser, setWhoLikesUser] = useState([])
     
-    // array of profiles of everyone who has liked that user
-    const [userMatches, setUserMatches] = useState([])
-    
-    // array of account ids of everyone who the current user has skipped
-    const [userSkips, setUserSkips] = useState([])
-    
-    // array of account ids of everyone who has skipped the current user
-    const [whoSkippedUser, setWhoSkippedUser] = useState([])
-    
-    // array of account ids of everyone who the current user has liked
-    const [userLikes, setUserLikes] = useState([])
-
     useEffect(() => {
       settingWhoLikesUserDrama()
     },[])
