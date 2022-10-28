@@ -18,6 +18,8 @@ export default function Browsing({ allProfiles, current_user_id }) {
     const [buckles, setBuckles] = useState(0);
     const navigate = useNavigate();
 
+    console.log('all profiles form browsing', allProfiles)
+
     function handleGoatClick(){
         if(goat){
             goatButton.classList.remove('bg-lime-500')
@@ -154,7 +156,7 @@ export default function Browsing({ allProfiles, current_user_id }) {
                 </h1>
             </div>
             <div id="profile-list" className="w-3/4 flex flex-wrap ml-auto">
-                {displayedUsers.map((eachProfile) =>
+                {allProfiles.map((eachProfile) =>
                         <RenderProfileCard
                             key={uuid()}
                             picture={eachProfile.profile_picture}

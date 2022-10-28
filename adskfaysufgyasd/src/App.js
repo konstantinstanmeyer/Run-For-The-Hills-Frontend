@@ -12,6 +12,9 @@ function App() {
   const [allProfiles, setAllProfiles] = useState([])
   const [errors, setErrors] = useState(false)
   const [currentUser, setCurrentUser] = useState({})
+  const [allLikes, setAllLikes] = useState([])
+  const [allMatches, setAllMatches] = useState([])
+  const [allSkips, setAllSkips] = useState([])
 
   useEffect(() => {
     fetch("/authorized_user")
@@ -21,17 +24,52 @@ function App() {
         .then((user) => {
           setCurrentUser(user);
           fetchProfiles()
+          fetchLikesMatchesSkips()
           console.log(currentUser)
         });
       }
     })
+    
   },[])
 
   const fetchProfiles = () => {
     fetch('/profiles')
     .then(res => {
       if(res.ok){
-        res.json().then(setAllProfiles)
+        res.json().then(data => {
+          setAllProfiles(() => data)
+        })
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+  }
+
+  function fetchLikesMatchesSkips() {
+    fetch('/likes')
+    .then(res => {
+      if(res.ok){
+        res.json().then(data => {
+          setAllLikes(data)
+        })
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+    fetch('/matches')
+    .then(res => {
+      if(res.ok){
+        res.json().then(data => {
+          setAllMatches(data)
+        })
+      }else {
+        res.json().then(data => setErrors(data.error))
+      }
+    })
+    fetch('/skips')
+    .then(res => {
+      if(res.ok){
+        res.json().then(setAllSkips)
       }else {
         res.json().then(data => setErrors(data.error))
       }
@@ -46,6 +84,16 @@ function App() {
        return updatedProfile
      } else {
        return profile
+     }
+    })
+  })
+
+  const updateMatches = (updatedMatch) => setAllMatches(current => {
+    return current.map(match => {
+     if(match.id === updatedMatch.id){
+       return updatedMatch
+     } else {
+       return match
      }
     })
   })
@@ -71,7 +119,13 @@ function App() {
             />
           }/>
           <Route path="/likesmatches" element={
-            <LikesMatches />
+            <LikesMatches
+            currentUser={currentUser}
+            allProfiles={allProfiles}
+            allLikes={allLikes}
+            allMatches={allMatches}
+            updateMatches={updateMatches}
+            />
           }/>
           <Route path="/profile" element={
             <Profile
