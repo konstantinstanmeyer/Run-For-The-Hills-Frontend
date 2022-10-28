@@ -41,7 +41,8 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
           }
         })
       })
-      console.log(forcedStateArray)
+      //console.log(forcedStateArray)
+      //let uniqMatches = [...new Set(forcedStateArray)];
       setUserMatches(() => forcedStateArray)
       settingWhoLikesUserDrama(forcedStateArray)
     }
@@ -56,6 +57,7 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
       // extracts the ids of the users who sent the current user a like
       let relevantLikerID = []
       relevantLikeEntries.forEach(like => relevantLikerID.push(like.user_id))
+      //console.log(relevantLikerID)
 
       // updates state of all of the profiles who like the current user by going through id array and finding the profile
       let relevantLikerProfiles = []
@@ -67,16 +69,22 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
         })
       })
 
-      let exludingExsistingMatches = []
-      forcedStateArray.forEach(profile => {
-        relevantLikerProfiles.forEach(likerProfile => {
-          if (likerProfile.user_id != profile.user_id) {
-            exludingExsistingMatches.push(likerProfile)
-          }
+      if (forcedStateArray.length >= 0) {
+        let exludingExsistingMatches = []
+        forcedStateArray.forEach(profile => {
+          relevantLikerProfiles.forEach(likerProfile => {
+            if (likerProfile.user_id != profile.user_id) {
+              exludingExsistingMatches.push(likerProfile)
+            }
+          })
         })
-      })
 
-      setWhoLikesUser(() => exludingExsistingMatches)
+        let uniqLikes = [...new Set(exludingExsistingMatches)];
+        setWhoLikesUser(() => uniqLikes)
+      } else {
+        setWhoLikesUser(relevantLikerProfiles)
+      }
+
     }
 
     const handleMakeAMatch = (match) => {
@@ -101,7 +109,6 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
 
       allProfiles.forEach(profile => {
         if (profile.user_id == match.user1_id) {
-          console.log(profile)
           setUserMatches(() => [...userMatches, profile])
         }
       })
@@ -114,7 +121,9 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
         }
       })
 
-      setWhoLikesUser(() => excludeTheMatches)
+
+      let uniqLikes = [...new Set(excludeTheMatches)];
+      setWhoLikesUser(() => uniqLikes)
 
 
       
