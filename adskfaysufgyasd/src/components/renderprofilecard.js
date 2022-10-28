@@ -116,7 +116,7 @@ export default function RenderProfileCard({ picture, beard, moonshine, rodeo_buc
             />
             </div>
             {/* <h2>{thisCardUserData.first_name}</h2> */}
-            <h4 className="ml-[10%] text-mg pt-5 text-black font-bold w-fit">{'fullName'}<span className="p-0 m-0 w-fit text-sm text-gray-600">{'age'}</span></h4>
+            <h4 className="ml-[10%] text-mg pt-5 text-black font-bold w-fit">{thisCardUserData.first_name} {thisCardUserData.last_name} <span className="p-0 m-0 w-fit text-sm text-gray-600">{'age'}</span></h4>
             <p className="ml-[10%] text-sm text-gray-600 font-bold">Truck Brand: {truck_brand}</p>
             <div className="flex [&>*]:mx-[8%] [&>*]:hover:cursor-pointer flex-row items-center mx-auto py-5 w-full justify-center pb-5 mt-2">
                 <img onClick={() => handleLike()} className="h-10 w-10" src="https://cdn-icons-png.flaticon.com/512/1182/1182720.png"/>
