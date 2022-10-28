@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import RenderProfileCard from "./renderprofilecard";
 import {v4 as uuid} from "uuid";
 import { Link } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 
 export default function Browsing({ allProfiles, current_user_id }) {
@@ -15,6 +16,7 @@ export default function Browsing({ allProfiles, current_user_id }) {
     const [birthaProximity, setBirthaProximity] = useState(0);
     const [moonshineAbv, setMoonshineAbv] = useState(0);
     const [buckles, setBuckles] = useState(0);
+    const navigate = useNavigate();
 
     function handleGoatClick(){
         if(goat){
@@ -46,6 +48,12 @@ export default function Browsing({ allProfiles, current_user_id }) {
 
     const displayedUsers = allProfiles.filter(checkProfile)
     console.log(allProfiles)
+
+    if (current_user_id === undefined) return (
+        <div className="">
+            <img className="w-screen h-screen object-cover bg-bottom fixed -z-10" src="https://www.onegreenplanet.org/wp-content/uploads/2018/02/screen-shot-2018-02-02-at-10-12-53-am.png"/>
+        </div>
+    )
 
     console.log(displayedUsers)
     return (
@@ -128,7 +136,7 @@ export default function Browsing({ allProfiles, current_user_id }) {
                                     <a className="hover:cursor-pointer hover:underline">Matches</a>
                                 </li>
                             </ul>
-                            <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" className="h-10 w-10 mr-4"/>
+                            <img onClick={() => navigate('/profile')} src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" className="h-10 w-10 mr-4 hover:cursor-pointer"/>
                         </div>
                     </div>
                 </div>

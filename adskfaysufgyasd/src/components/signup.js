@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ProfileForm from './profileform';
+import { useNavigate } from 'react-router-dom';
 //import {useHistory} from 'react-router-dom'
 
 export default function Signup({onFetchProfiles, addProfile, updateProfile }){
@@ -12,6 +13,7 @@ export default function Signup({onFetchProfiles, addProfile, updateProfile }){
     const [hasNotSubmitted, setHasNotSubmitted] = useState(true);
     const [errors, setErrors] = useState([]);
     const [profileID, setProfileID] = useState('');
+    const navigate = useNavigate();
 
     //const history = useHistory()
 
@@ -36,6 +38,7 @@ export default function Signup({onFetchProfiles, addProfile, updateProfile }){
                 console.log(data)
                 createEmptyProfile(data.id)
                 setData(data)
+                navigate('/profile')
                 //history.push(`/users/${data.id}`)
                 setHasNotSubmitted(false)
                 onFetchProfiles()

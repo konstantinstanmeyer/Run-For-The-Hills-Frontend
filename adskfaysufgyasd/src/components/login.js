@@ -49,6 +49,7 @@ export default function Login(){
             r.json().then(data => {
               setUserData(data)
               console.log(data)
+              navigate('/dating')
             })
           } else {
             r.json().then(json => console.log(json.errors))
