@@ -120,17 +120,18 @@ function App() {
           }/>
           <Route path="/likesmatches" element={
             <LikesMatches
-            currentUser={currentUser}
-            allProfiles={allProfiles}
-            allLikes={allLikes}
-            allMatches={allMatches}
-            updateMatches={updateMatches}
+              currentUser={currentUser}
+              allProfiles={allProfiles}
+              allLikes={allLikes}
+              allMatches={allMatches}
+              updateMatches={updateMatches}
             />
           }/>
           <Route path="/profile" element={
             <Profile
               currentUser={currentUser}
               updateProfile={updateProfile}
+              //profileID={currentUser['profile'].id}
             />
           }/>
           <Route path="/about" element={
