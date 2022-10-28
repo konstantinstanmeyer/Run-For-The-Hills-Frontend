@@ -37,8 +37,7 @@ function App() {
     .then(res => {
       if(res.ok){
         res.json().then(data => {
-          setAllProfiles(() => [...allProfiles, data])
-          fetchLikesMatchesSkips(data)
+          setAllProfiles(() => data)
         })
       }else {
         res.json().then(data => setErrors(data.error))
