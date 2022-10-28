@@ -138,6 +138,9 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
                             security_goat={eachProfile['security_goat?']}
                             firstName={eachProfile['user'].first_name}
                             lastName={eachProfile['user'].last_name}
+                            wholeMatch={eachProfile}
+                            allMatches={allMatches}
+                            currentUser={currentUser}
                         />
                     )
                 }
