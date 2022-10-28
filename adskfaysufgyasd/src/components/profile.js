@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ProfileForm from './profileform';
 
-export default function Profile({currentUser}){
+export default function Profile({currentUser, profileID}){
     const navigate = useNavigate();
     const [clicked, setClicked] = useState(true)
     console.log(currentUser);
@@ -24,6 +24,15 @@ export default function Profile({currentUser}){
         const { name, value } = e.target
         setFormData({ ...formData, [name]: value })
     }
+    console.log(currentUser)
+
+    useEffect(() => {
+        let profileID = currentUser.profile
+        console.log(profileID)
+        // fetch(`/profiles/${profileID}`)
+        // .then(res => res.json())
+        // .then(setFormData)
+      },[])
 
     function onSubmit(e){
         e.preventDefault()

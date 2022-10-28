@@ -58,65 +58,65 @@ export default function ProfileForm({ profileID, userID, updateProfile }){
           <div>
             {hasNotSubmitted ?
               <div>
-                <br/><br/>
-              {errors?errors.map(e => <div>{e}</div>):null}
-              <form onSubmit={onSubmit}>
+              <br/><br/>
+            {errors?errors.map(e => <div>{e}</div>):null}
+            <form onSubmit={onSubmit}>
 
-                <br/><br/>
+              <br/><br/>
 
-                <label>beardLength</label>
-                <input type='number' name='beard_length' value={formData.beard_length} onChange={handleChange} />
-                
-                <br/><br/>
-
-                <label> truckBrand</label>
-                <textarea type='text' name='truck_brand' value={formData.truck_brand} onChange={handleChange} />
+              <label>beardLength</label>
+              <input type='number' name='beard_length' value={formData.beard_length} onChange={handleChange} />
               
-                <br/><br/>
+              <br/><br/>
 
-                <label>prefferedTobacco</label>
-                <textarea type='text' name='mode_of_tobacco' value={formData.mode_of_tobacco} onChange={handleChange} />
+              <label> truckBrand</label>
+              <textarea type='text' name='truck_brand' value={formData.truck_brand} onChange={handleChange} />
+            
+              <br/><br/>
+
+              <label>prefferedTobacco</label>
+              <textarea type='text' name='mode_of_tobacco' value={formData.mode_of_tobacco} onChange={handleChange} />
+            
+              <br/><br/>
+
+              <label>securityGoat </label>
+              <input type='checkbox' name='security_goat?' value={formData['security_goat?']} onChange={handleChange} />
+            
+              <br/><br/>
+
+              <label>pontoonBoat </label>
+              <input type='checkbox' name='pontoon_boat?' value={formData['pontoon_boat?']} onChange={handleChange} />
+            
+              <br/><br/>
+
+              <label>profilePic</label>
+              <textarea type='text' name='profile_picture' value={formData.profile_picture} onChange={handleChange} />
+
+              <br/><br/>
+
+              <label>photoPng</label>
+              <textarea type='text' name='photo_png' value={formData.photo_png} onChange={handleChange} />
+
+              <br/><br/>
+
+              <label>rodeoBuckles</label>
+              <input type='number' name='rodeo_buckles' value={formData.rodeo_buckles} onChange={handleChange} />
+            
+              <br/><br/>
+
+              <label>moonshine</label>
+              <input type='number' name='moonshine_abv_level' value={formData.moonshine_abv_level} onChange={handleChange} />
               
-                <br/><br/>
+              <br/><br/>
 
-                <label>securityGoat </label>
-                <input type='checkbox' name='security_goat?' value={formData['security_goat?']} onChange={handleChange} />
               
-                <br/><br/>
-
-                <label>pontoonBoat </label>
-                <input type='checkbox' name='pontoon_boat?' value={formData['pontoon_boat?']} onChange={handleChange} />
+              <button>
+                  <input type='submit' value='Update Profile' />
               
-                <br/><br/>
-
-                <label>profilePic</label>
-                <textarea type='text' name='profile_picture' value={formData.profile_picture} onChange={handleChange} />
-
-                <br/><br/>
-
-                <label>photoPng</label>
-                <textarea type='text' name='photo_png' value={formData.photo_png} onChange={handleChange} />
-
-                <br/><br/>
-
-                <label>rodeoBuckles</label>
-                <input type='number' name='rodeo_buckles' value={formData.rodeo_buckles} onChange={handleChange} />
-              
-                <br/><br/>
-
-                <label>moonshine</label>
-                <input type='number' name='moonshine_abv_level' value={formData.moonshine_abv_level} onChange={handleChange} />
-                
-                <br/><br/>
-
-                
-                <button>
-                    <input type='submit' value='Update Profile' />
-                
-                </button>
-              </form>
-              {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
-              </div>
+              </button>
+            </form>
+            {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
+            </div>
               :
               <div>
                 <br/><br/>
