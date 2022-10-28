@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-export default function ProfileForm({ profileID, userID, updateProfile }){
+export default function ProfileForm({ profileID, userID, updateProfile, currentUser }){
 
     const navigate = useNavigate();
+    const [clicked, setClicked] = useState(true)
     
     const [formData, setFormData] = useState({
         beard_length: undefined,
@@ -55,86 +56,48 @@ export default function ProfileForm({ profileID, userID, updateProfile }){
 
 
         return (
-          <div>
-            {hasNotSubmitted ?
-              <div>
-                <br/><br/>
-              {errors?errors.map(e => <div>{e}</div>):null}
-              <form onSubmit={onSubmit}>
-
-                <br/><br/>
-
-                <label>beardLength</label>
-                <input type='number' name='beard_length' value={formData.beard_length} onChange={handleChange} />
-                
-                <br/><br/>
-
-                <label> truckBrand</label>
-                <textarea type='text' name='truck_brand' value={formData.truck_brand} onChange={handleChange} />
-              
-                <br/><br/>
-
-                <label>prefferedTobacco</label>
-                <textarea type='text' name='mode_of_tobacco' value={formData.mode_of_tobacco} onChange={handleChange} />
-              
-                <br/><br/>
-
-                <label>securityGoat </label>
-                <input type='checkbox' name='security_goat?' value={formData['security_goat?']} onChange={handleChange} />
-              
-                <br/><br/>
-
-                <label>pontoonBoat </label>
-                <input type='checkbox' name='pontoon_boat?' value={formData['pontoon_boat?']} onChange={handleChange} />
-              
-                <br/><br/>
-
-                <label>profilePic</label>
-                <textarea type='text' name='profile_picture' value={formData.profile_picture} onChange={handleChange} />
-
-                <br/><br/>
-
-                <label>photoPng</label>
-                <textarea type='text' name='photo_png' value={formData.photo_png} onChange={handleChange} />
-
-                <br/><br/>
-
-                <label>rodeoBuckles</label>
-                <input type='number' name='rodeo_buckles' value={formData.rodeo_buckles} onChange={handleChange} />
-              
-                <br/><br/>
-
-                <label>moonshine</label>
-                <input type='number' name='moonshine_abv_level' value={formData.moonshine_abv_level} onChange={handleChange} />
-                
-                <br/><br/>
-
-                
-                <button>
-                    <input type='submit' value='Update Profile' />
-                
-                </button>
-              </form>
-              {errors?errors.map(e => <h2 style={{color:'red'}}>{e.toUpperCase()}</h2>):null}
+          <div className="h-screen w-screen bg-cover bg-bottom fixed bg-[url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1682&q=80')]">
+          <div className="bg-[url('https://pngimg.com/uploads/paper_sheet/paper_sheet_PNG7232.png')] bg-no-repeat mt-[2%] bg-center bg-contain h-[90vh] relative">
+              <div className="mx-auto pt-[5%] flex flex-col justify-center overflow-y-scroll w-1/3 relative">
+                  <h1 className="text-center text-3xl font-bold italic">become an individual</h1>
+                  <img onClick={() => setClicked(!clicked)} src="https://cdn-icons-png.flaticon.com/512/1159/1159876.png" className="h-10 w-10 absolute right-5 top-20 hover:cursor-pointer"/>
+                  <img className="w-32 mx-auto m-5 h-32 object-cover rounded-full" src={currentUser.profile_picture}/>
+                  {!clicked ? <div>   
+                                  <p className="ml-[20%] text-lg font-semibold py-[1%]">Beard Length: <span className="text-sm">{currentUser.profile.beard_length == null ? "N/A" : currentUser.profile.beard_length}</span></p>
+                                  <p className="ml-[20%] text-lg font-semibold py-[1%]">Moonshine Abv. Level: <span className="text-sm">{currentUser.profile.moonshine_abv_level == null ? "N/A" : currentUser.profile.moonshine_abv_level}</span></p>
+                                  <p className="ml-[20%] text-lg font-semibold py-[1%]">Truck Brand <span className="text-sm">{currentUser.profile.truck_brand == null ? "N/A" : currentUser.profile.truck_brand}</span></p>
+                                  <p className="ml-[20%] text-lg font-semibold py-[1%]">Mode of Tobacco <span className="text-sm">{currentUser.profile.mode_of_tobacco == null ? "N/A" : currentUser.profile.mode_of_tobacco}</span></p>
+                                  <p className="ml-[20%] text-lg font-semibold py-[1%]">Has Pontoon? <span className="text-sm">{currentUser.profile["pontoon_boat?"] == null ? "N/A" : currentUser.profile["pontoon_boat?"] == true ? "yes ma'am!" : "no sir!"}</span></p>
+                                  <p className="ml-[20%] text-lg font-semibold py-[1%]">Security goat check! <span className="text-sm">{currentUser.profile["security_goat?"] == null ? "N/A" : currentUser.profile["security_goat?"] == true ? "passed!" : "failed!"}</span></p>
+                              </div> : 
+                              <div>
+                                  <form onSubmit={onSubmit} className="flex flex-col">
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="profile picture" type="text" value={formData["profile_picture"]} onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="beard length(in)" type="number" value={formData.beard_length} onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="moonshine abv level" type="number" value={formData.moonshine_abv_level} onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="truck brand" value={formData.truck_brand} type="text" onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="mode of tobacco" value={formData.mode_of_tobacco} type="text" onChange={handleChange}/>
+                                      <div className="flex flex-row w-1/3 mx-auto items-center">
+                                          <input className="my-2 h-5 text-sm indent-1 rounded-md bg-white/40 text-black italic px-2" type="checkbox" value={formData["pontoon_boat?"]} onChange={handleChange}/><span className="px-2">Pontoon Boat??</span>
+                                      </div>
+                                      <div className="flex flex-row w-1/3 mx-auto items-center">
+                                          <input className="my-2 h-5 text-sm indent-1 rounded-md bg-white/40 text-black italic px-2" type="checkbox" value={formData["security_goat?"]} onChange={handleChange}/><span className="px-2">Security Goat??</span>
+                                      </div>
+                                      <button type="submit" className="w-1/4 mx-auto bg-white/40 h-fit mt-2 rounded-md hover:bg-white/80">submit</button>
+                                  </form>
+                              </div>
+                  }
               </div>
-              :
-              <div>
-                <br/><br/>
-                <button onClick={() => navigate("/dating")}>
-                    Search the Haystack!
-                </button>
-                <br/><br/>
-                <button onClick={() => navigate("/likesmatches")}>
-                    Check out your catches!
-                </button>
-                <br/><br/>
-                <button onClick={() => navigate("/profile")}>
-                    Return to Your Profile
-                </button>
-      
-              </div>
-            }
           </div>
+          {/* <button onClick={() => setClicked(!clicked)}> 
+              <p>Edit Your Profile!</p>
+          </button> */}
+          {/* {clicked ? 
+              null 
+              : 
+              <ProfileForm restTYPE={'PATCH'}/>
+          } */}
+      </div>
         )
 }
 
