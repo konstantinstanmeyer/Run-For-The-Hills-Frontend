@@ -7,13 +7,16 @@ import About from './components/about'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css';
 import Signup from './components/signup'
+import LikeMatchLogic from './components/likeMatchLogic'
 
 function App() {
   const [allProfiles, setAllProfiles] = useState([])
   const [errors, setErrors] = useState(false)
   const [currentUser, setCurrentUser] = useState({})
   const [allLikes, setAllLikes] = useState([])
+  const [filteredLikes, setFilteredLikes] = useState([])
   const [allMatches, setAllMatches] = useState([])
+  const [filteredMatches, setFilteredMatches] = useState([])
   const [allSkips, setAllSkips] = useState([])
 
   useEffect(() => {
@@ -36,18 +39,23 @@ function App() {
     fetch('/profiles')
     .then(res => {
       if(res.ok){
-        res.json().then(setAllProfiles)
+        res.json().then(data => {
+          setAllProfiles(() => [...allProfiles, data])
+          fetchLikesMatchesSkips(data)
+        })
       }else {
         res.json().then(data => setErrors(data.error))
       }
     })
   }
 
-  const fetchLikesMatchesSkips = () => {
+  function fetchLikesMatchesSkips() {
     fetch('/likes')
     .then(res => {
       if(res.ok){
-        res.json().then(setAllLikes)
+        res.json().then(data => {
+          setAllLikes(data)
+        })
       }else {
         res.json().then(data => setErrors(data.error))
       }
@@ -55,9 +63,9 @@ function App() {
     fetch('/matches')
     .then(res => {
       if(res.ok){
-        res.json().then(setAllMatches)
-          //console.log(data)
-          //console.log(allMatches)
+        res.json().then(data => {
+          setAllMatches(data)
+        })
       }else {
         res.json().then(data => setErrors(data.error))
       }
@@ -96,6 +104,14 @@ function App() {
   
   return (
     <div>
+      <LikeMatchLogic
+        currentUser={currentUser}
+        allLikes={allLikes}
+        allMatches={allMatches}
+        allProfiles={allProfiles}
+        onFilterMatches={(filtM) => setFilteredMatches([...filteredMatches, filtM])}
+        onFilterLikes={(filtL) => setFilteredLikes([...filteredLikes, filtL])}
+      />
       <Router>
         <Routes>
           <Route exact path="/" element={

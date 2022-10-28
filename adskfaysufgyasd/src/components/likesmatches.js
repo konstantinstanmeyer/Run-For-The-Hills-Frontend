@@ -5,16 +5,16 @@ import {v4 as uuid} from "uuid";
 import SimpleLikesCard from './simpleLikesCard';
 import MatchesCard from './matchesCard';
 
-export default function LikesMatches({ currentUser, allProfiles, allLikes, allMatches, updateMatches }){
+export default function LikesMatches({ currentUser, allProfiles, filteredLikes, filteredMatches, updateMatches }){
 
     const [errors, setErrors] = useState(false)
     const navigate = useNavigate();
 
-    // array of profiles of everyone who has liked the current user 
-    const [whoLikesUser, setWhoLikesUser] = useState([])
+    // // array of profiles of everyone who has liked the current user 
+    // const [whoLikesUser, setWhoLikesUser] = useState([])
     
-    // array of profiles of everyone who has liked that user
-    const [userMatches, setUserMatches] = useState([])
+    // // array of profiles of everyone who has liked that user
+    // const [userMatches, setUserMatches] = useState([])
     
     // array of account ids of everyone who the current user has skipped
     const [userSkips, setUserSkips] = useState([])
@@ -27,68 +27,69 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
 
     useEffect(() => {
       //settingWhoLikesUserDrama()
-      settingInitialMatchesDrama()
+      // settingInitialMatchesDrama()
+      console.log(filteredLikes)
+      console.log(filteredMatches)
     },[])
 
-    function settingInitialMatchesDrama() {
-      let forcedStateArray = []
-      let truthyMatches = allMatches.filter(match => match.didtheymatch == true)
-      truthyMatches.forEach(trueMatch => {
-        allProfiles.forEach(profile => {
-          if (trueMatch.user2_id == currentUser.id && trueMatch.user1_id == profile.user_id) {
-            console.log('profiles that are already matched', profile)
-            forcedStateArray.push(profile)
-          }
-        })
-      })
-      //console.log(forcedStateArray)
-      //let uniqMatches = [...new Set(forcedStateArray)];
-      setUserMatches(() => forcedStateArray)
-      settingWhoLikesUserDrama(forcedStateArray)
-    }
+    // function settingInitialMatchesDrama() {
+    //   let forcedStateArray = []
+    //   let truthyMatches = allMatches.filter(match => match.didtheymatch == true)
+    //   truthyMatches.forEach(trueMatch => {
+    //     allProfiles.forEach(profile => {
+    //       if (trueMatch.user2_id == currentUser.id && trueMatch.user1_id == profile.user_id) {
+    //         console.log('profiles that are already matched', profile)
+    //         forcedStateArray.push(profile)
+    //       }
+    //     })
+    //   })
+    //   //console.log(forcedStateArray)
+    //   //let uniqMatches = [...new Set(forcedStateArray)];
+    //   setUserMatches(() => forcedStateArray)
+    //   settingWhoLikesUserDrama(forcedStateArray)
+    // }
 
 
-    function settingWhoLikesUserDrama(forcedStateArray) {
+    // function settingWhoLikesUserDrama(forcedStateArray) {
 
-      // finds the entries from all the like instances in the db that pertain to the current user
-      let relevantLikeEntries = allLikes.filter(like => like.received_id == currentUser.id)
-      // console.log('relevnat likes', relevantLikeEntries)
+    //   // finds the entries from all the like instances in the db that pertain to the current user
+    //   let relevantLikeEntries = allLikes.filter(like => like.received_id == currentUser.id)
+    //   // console.log('relevnat likes', relevantLikeEntries)
 
-      // extracts the ids of the users who sent the current user a like
-      let relevantLikerID = []
-      relevantLikeEntries.forEach(like => relevantLikerID.push(like.user_id))
-      //console.log(relevantLikerID)
+    //   // extracts the ids of the users who sent the current user a like
+    //   let relevantLikerID = []
+    //   relevantLikeEntries.forEach(like => relevantLikerID.push(like.user_id))
+    //   //console.log(relevantLikerID)
 
-      // updates state of all of the profiles who like the current user by going through id array and finding the profile
-      let relevantLikerProfiles = []
-      relevantLikerID.forEach(id => {
-        allProfiles.forEach(profile => {
-          if (profile.user_id == id ) {
-            relevantLikerProfiles.push(profile)
-          }
-        })
-      })
+    //   // updates state of all of the profiles who like the current user by going through id array and finding the profile
+    //   let relevantLikerProfiles = []
+    //   relevantLikerID.forEach(id => {
+    //     allProfiles.forEach(profile => {
+    //       if (profile.user_id == id ) {
+    //         relevantLikerProfiles.push(profile)
+    //       }
+    //     })
+    //   })
 
-      if (forcedStateArray.length >= 0) {
-        let exludingExsistingMatches = []
-        forcedStateArray.forEach(profile => {
-          relevantLikerProfiles.forEach(likerProfile => {
-            if (likerProfile.user_id != profile.user_id) {
-              exludingExsistingMatches.push(likerProfile)
-            }
-          })
-        })
+    //   if (forcedStateArray.length >= 0) {
+    //     let exludingExsistingMatches = []
+    //     forcedStateArray.forEach(profile => {
+    //       relevantLikerProfiles.forEach(likerProfile => {
+    //         if (likerProfile.user_id != profile.user_id) {
+    //           exludingExsistingMatches.push(likerProfile)
+    //         }
+    //       })
+    //     })
 
-        let uniqLikes = [...new Set(exludingExsistingMatches)];
-        setWhoLikesUser(() => uniqLikes)
-      } else {
-        setWhoLikesUser(relevantLikerProfiles)
-      }
+    //     let uniqLikes = [...new Set(exludingExsistingMatches)];
+    //     setWhoLikesUser(() => uniqLikes)
+    //   } else {
+    //     setWhoLikesUser(relevantLikerProfiles)
+    //   }
 
-    }
+    // }
 
     const handleMakeAMatch = (match) => {
-      //console.log(match)
       const newTruth = {
         didtheymatch: true
       }
@@ -109,29 +110,24 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
 
       allProfiles.forEach(profile => {
         if (profile.user_id == match.user1_id) {
-          setUserMatches(() => [...userMatches, profile])
+          console.log('need fix here!!')
+          //setFilteredMatches(() => [...userMatches, profile])
         }
       })
 
+      console.log('need fix this part of likes matches!')
       // very VERY undry code but running out of time ya know?
-      let excludeTheMatches = []
-      whoLikesUser.forEach(likerProfile =>{
-        if (likerProfile.user_id != match.user1_id) {
-          excludeTheMatches.push(likerProfile)
-        }
-      })
+      // let excludeTheMatches = []
+      // whoLikesUser.forEach(likerProfile =>{
+      //   if (likerProfile.user_id != match.user1_id) {
+      //     excludeTheMatches.push(likerProfile)
+      //   }
+      // })
 
 
-      let uniqLikes = [...new Set(excludeTheMatches)];
-      setWhoLikesUser(() => uniqLikes)
+      //let uniqLikes = [...new Set(excludeTheMatches)];
+      //setWhoLikesUser(() => uniqLikes)
 
-
-      
-      //setWhoLikesUser(() => [whoLikesUser.filter(profile => profile.user_id != match.user1_id)])
-      //console.log(whoLikesUser)
-      //console.log(whoLikesUser.filter(profile => profile.user_id != match.user1_id))
-
-      //setUserMatches(() => [...userMatches, allMatches.filter(match => match.didtheymatch == true)])
     }
 
     
@@ -143,7 +139,7 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
                 ooohhhh someone likes you....
             </div>
             <div id="who-likes-user-list" className="w-3/4 flex flex-wrap mt-20 ml-auto">
-                {whoLikesUser.map((eachProfile) =>
+                {/* {filteredLikes.map((eachProfile) =>
                         <SimpleLikesCard
                             key={uuid()}
                             picture={eachProfile.profile_picture}
@@ -158,11 +154,11 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
                             lastName={eachProfile['user'].last_name}
                             thisCardUserData={eachProfile['user']}
                             current_user_id={currentUser.id}
-                            allMatches={allMatches}
+                            //allMatches={allMatches}
                             onMakeAMatch={(match) => handleMakeAMatch(match)}
                         />
                     )
-                }
+                } */}
             </div>
 
             <br/><br/>
@@ -170,7 +166,7 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
                 you got some steammmmmyy matches dammnn....
             </div>
             <div id="who-likes-user-list" className="w-3/4 flex flex-wrap mt-20 ml-auto">
-                {userMatches.map((eachProfile) =>
+                {/* {filteredMatches.map((eachProfile) =>
                         <MatchesCard
                             key={uuid()}
                             picture={eachProfile.profile_picture}
@@ -185,7 +181,7 @@ export default function LikesMatches({ currentUser, allProfiles, allLikes, allMa
                             lastName={eachProfile['user'].last_name}
                         />
                     )
-                }
+                } */}
             </div>
 
             <br/><br/>
