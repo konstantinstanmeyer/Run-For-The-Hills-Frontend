@@ -55,11 +55,22 @@ export default function Browsing({ allProfiles, current_user_id }) {
         fetch('/logout', {
             method: 'DELETE',
         })
+        .then(navigate('/'))
     }
 
+    // if (current_user_id === undefined) return (
+    //     <div className="">
+    //         <img className="w-screen h-screen object-cover bg-bottom fixed -z-10" src="https://www.onegreenplanet.org/wp-content/uploads/2018/02/screen-shot-2018-02-02-at-10-12-53-am.png"/>
+    //     </div>
+    // )
+
     if (current_user_id === undefined) return (
-        <div className="">
-            <img className="w-screen h-screen object-cover bg-bottom fixed -z-10" src="https://www.onegreenplanet.org/wp-content/uploads/2018/02/screen-shot-2018-02-02-at-10-12-53-am.png"/>
+        <div className=''>
+            <img className='w-screen h-screen object-cover bg-bottom fixed -z-10' src='https://www.onegreenplanet.org/wp-content/uploads/2018/02/screen-shot-2018-02-02-at-10-12-53-am.png'/>
+            <div className='relative flex mx-auto h-1/3 w-1/2 flex-col justify-center'>
+                <h1 className='text-white font-bold text-center text-4xl mt-48'>you must be signed in to view this!</h1>
+                <button onClick={() => navigate('/')} className='bg-red-500 font-bold w-1/4 py-5 rounded-md mx-auto mt-5'>return to sign-in</button>
+            </div>
         </div>
     )
 
@@ -144,7 +155,7 @@ export default function Browsing({ allProfiles, current_user_id }) {
                                     <a onClick={handleSignout} className="hover:cursor-pointer hover:underline">Sign Out</a>
                                 </li>
                                 <li className="px-2">
-                                    <a className="hover:cursor-pointer hover:underline">Matches</a>
+                                    <a className="hover:cursor-pointer hover:underline" onClick={() => navigate('/likesmatches')}>Matches</a>
                                 </li>
                             </ul>
                             <img onClick={() => navigate('/profile')} src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" className="h-10 w-10 mr-4 hover:cursor-pointer"/>

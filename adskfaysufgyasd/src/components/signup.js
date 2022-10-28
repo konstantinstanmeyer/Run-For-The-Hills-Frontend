@@ -95,6 +95,7 @@ export default function Signup({onFetchProfiles, addProfile, updateProfile }){
             </div>
           </div>
             :
+            //<button className="w-1/4 mx-auto bg-white/40 h-fit mt-2 rounded-md hover:bg-white/80" onClick={() => navigate('/dating')}>Return to the Haystack</button>
             <div>
                 <p>Welcome to RFTH, {data.first_name}!</p>
                 <p>Let's set up your profile to get you fishing for your perfect catch:</p>

@@ -3,6 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import ProfileForm from './profileform';
 
 export default function Profile({currentUser}){
+
+
+    return(
+        <ProfileForm 
+            profileID={currentUser['profile'].id}
+            userID={currentUser.id}
+            currentUser={currentUser}
+        />
+    
+    )
+}
+
     // const navigate = useNavigate();
     // const [clicked, setClicked] = useState(true)
     // console.log(currentUser);
@@ -48,13 +60,3 @@ export default function Profile({currentUser}){
     //console.log(currentUser.profile)    
 
     // {"id":4,"profile_picture":"https://media.gettyimages.com/photos/cowgirl-picture-id157185521?s=612x612","photo_png":"nill","beard_length":0,"moonshine_abv_level":17,"rodeo_buckles":83,"truck_brand":"ford","mode_of_tobacco":"all","pontoon_boat?":true,"security_goat?":true,"user_id":4,"user":{"id":4,"email":"d@gmail.com","first_name":"Wendy","last_name":"Baconator"}
-
-    return(
-        <ProfileForm 
-            profileID={currentUser['profile'].id}
-            userID={currentUser.id}
-            currentUser={currentUser}
-        />
-    
-    )
-}

@@ -44,9 +44,9 @@ export default function ProfileForm({ profileID, userID, updateProfile, currentU
         .then(res => {
           if(res.ok){
             res.json().then(updateProfile)
-            console.log('howdy from an updated profile')
+            console.log('howdy from an updated profile', formData)
             setHasNotSubmitted(() => false)
-            navigate('/dating')
+            //navigate('/dating')
           } else {
             //Display errors
             res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
@@ -73,19 +73,21 @@ export default function ProfileForm({ profileID, userID, updateProfile, currentU
                               </div> : 
                               <div>
                                   <form onSubmit={onSubmit} className="flex flex-col">
-                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="profile picture" type="text" value={formData["profile_picture"]} onChange={handleChange}/>
-                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="beard length(in)" type="number" value={formData.beard_length} onChange={handleChange}/>
-                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="moonshine abv level" type="number" value={formData.moonshine_abv_level} onChange={handleChange}/>
-                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="truck brand" value={formData.truck_brand} type="text" onChange={handleChange}/>
-                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="mode of tobacco" value={formData.mode_of_tobacco} type="text" onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="profile picture" type="text" value={formData["profile_picture"]} name='profile_picture' onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="beard length(in)" type="number" value={formData.beard_length} name='beard_length' onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="moonshine abv level" type="number" value={formData.moonshine_abv_level} name='moonshine_abv_level' onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="truck brand" value={formData.truck_brand} type="text" name='truck_brand' onChange={handleChange}/>
+                                      <input className="my-2 h-5 text-sm w-1/2 mx-auto indent-1 rounded-md bg-white/40 text-black italic" placeholder="mode of tobacco" value={formData.mode_of_tobacco} type="text" name='mode_of_tobacco' onChange={handleChange}/>
                                       <div className="flex flex-row w-1/3 mx-auto items-center">
-                                          <input className="my-2 h-5 text-sm indent-1 rounded-md bg-white/40 text-black italic px-2" type="checkbox" value={formData["pontoon_boat?"]} onChange={handleChange}/><span className="px-2">Pontoon Boat??</span>
+                                          <input className="my-2 h-5 text-sm indent-1 rounded-md bg-white/40 text-black italic px-2" type="checkbox" value={formData["pontoon_boat?"]} name='pontoon_boat?' onChange={handleChange}/><span className="px-2">Pontoon Boat??</span>
                                       </div>
                                       <div className="flex flex-row w-1/3 mx-auto items-center">
-                                          <input className="my-2 h-5 text-sm indent-1 rounded-md bg-white/40 text-black italic px-2" type="checkbox" value={formData["security_goat?"]} onChange={handleChange}/><span className="px-2">Security Goat??</span>
+                                          <input className="my-2 h-5 text-sm indent-1 rounded-md bg-white/40 text-black italic px-2" type="checkbox" value={formData["security_goat?"]} name='security_goat?' onChange={handleChange}/><span className="px-2">Security Goat??</span>
                                       </div>
                                       <button type="submit" className="w-1/4 mx-auto bg-white/40 h-fit mt-2 rounded-md hover:bg-white/80">submit</button>
+                                      {/* <button className="w-1/4 mx-auto bg-white/40 h-fit mt-2 rounded-md hover:bg-white/80" onClick={() => navigate('/dating')}>Return to the Haystack</button> */}
                                   </form>
+                                  <button className="w-1/4 mx-auto bg-white/40 h-fit mt-2 rounded-md hover:bg-white/80" onClick={() => navigate('/dating')}>Return to the Haystack</button>
                               </div>
                   }
               </div>

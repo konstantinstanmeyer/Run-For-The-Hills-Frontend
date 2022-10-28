@@ -102,7 +102,7 @@ export default function Login({ setCurrentUser }){
                     {!emailRegex.test(email) && startedTyping === true ? <p className="text-sm text-red-500 p-0 m-0 text-center top-[53%]">*please enter a valid email*</p> : null}
                     <input className="h-10 w-2/3 border-4 rounded-md m-auto indent-3 py-5 my-2" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password..." type={closed ? "password" : "text"}/>
                     <img onClick={() => setClosed(!closed)} className="h-6 w-6 relative ml-auto -top-11 right-[20%]" src={closed ? "https://cdn-icons-png.flaticon.com/512/2356/2356734.png" : "https://cdn-icons-png.flaticon.com/512/709/709612.png"}/>
-                    <button className="rounded-md h-20 w-2/3 bg-green-500 m-auto text-2xl text-white">Sign In</button>
+                    <button className="rounded-md h-20 w-2/3 bg-green-500 m-auto text-2xl text-white">Enter the Barn Yard</button>
                 </form>
                 <p onClick={() => navigate("/signup")} className="text-center mt-1 hover:cursor-pointer">don't have an account? <i>Saddle up</i></p>
             </div>
