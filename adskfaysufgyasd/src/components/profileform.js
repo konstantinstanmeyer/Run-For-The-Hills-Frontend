@@ -46,6 +46,7 @@ export default function ProfileForm({ profileID, userID, updateProfile, currentU
             res.json().then(updateProfile)
             console.log('howdy from an updated profile')
             setHasNotSubmitted(() => false)
+            navigate('/dating')
           } else {
             //Display errors
             res.json().then(data => setErrors(Object.entries(data.errors).map(e => `${e[0]} ${e[1]}`)))
